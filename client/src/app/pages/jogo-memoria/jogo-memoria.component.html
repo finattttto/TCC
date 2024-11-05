@@ -1,0 +1,25 @@
+<div class="grid p-fluid align-content-center" style="height: calc(100vh - 200px);">
+  <div class="col-12">
+    <ul class="list-container">
+      <li
+        *ngFor="let carta of cartas"
+        class="card-letra"
+        [ngClass]="{ revelar: carta.revelado }"
+        (click)="revelarCarta(carta)"
+      >
+        <ng-container *ngIf="carta.revelado">
+          <img
+            *ngIf="carta.figura"
+            src="assets/alfabeto-manual/letra-a.png"
+            alt="Image"
+            class="carta-imagem"
+          />
+          <span *ngIf="!carta.figura">{{ carta.letra }}</span>
+        </ng-container>
+        <ng-container *ngIf="!carta.revelado">
+          <span class="carta-oculta">?</span>
+        </ng-container>
+      </li>
+    </ul>
+  </div>
+</div>

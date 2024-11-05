@@ -1,0 +1,13 @@
+.app-header {
+    background-image: linear-gradient(to right, var(--bluegray-300), var(--bluegray-800));
+    color: white;
+    max-height: 70px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-content {
+    display: contents;
+}

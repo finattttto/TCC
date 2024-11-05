@@ -1,0 +1,17 @@
+<p-toast></p-toast>
+
+<app-header></app-header>
+
+<div class="card">
+  <div class="dock-window">
+    <p-dock [model]="items" position="bottom">
+      <ng-template pTemplate="item" let-item>
+        <img [src]="item.icon" [alt]="item.label" width="100%" />
+      </ng-template>
+    </p-dock>
+  </div>
+</div>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
