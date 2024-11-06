@@ -17,6 +17,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ToastModule } from 'primeng/toast';
 import { JogoAlfabetoManualComponent } from './pages/jogo-alfabeto-manual/jogo-alfabeto-manual.component';
 import { JogoMemoriaComponent } from './pages/jogo-memoria/jogo-memoria.component';
+import { FeedbackComponent } from './components/feedback/feedback.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { JogoMemoriaComponent } from './pages/jogo-memoria/jogo-memoria.componen
         PaginaInicialComponent,
         JogoAdivinhacaoComponent,
         JogoAlfabetoManualComponent,
-        JogoMemoriaComponent
+        JogoMemoriaComponent,
+        FeedbackComponent
     ],
     imports: [
         BrowserModule,

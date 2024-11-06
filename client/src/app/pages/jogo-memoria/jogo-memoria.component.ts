@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import letrasData from '../../data/alfabeto-manual.json';
 import { Letra } from 'src/app/model/interface/letra';
+import { ETipoFeedback } from 'src/app/model/enum/EFeedback';
 
 @Component({
   selector: 'app-jogo-memoria',
@@ -14,6 +15,8 @@ export class JogoMemoriaComponent implements OnInit {
   primeiraCarta: Carta | null = null;
   segundaCarta: Carta | null = null;
   bloqueado: boolean = false;
+
+  feedback: ETipoFeedback = ETipoFeedback.VAZIO;
 
   constructor(public msg: MessageService) {}
 
@@ -60,6 +63,7 @@ export class JogoMemoriaComponent implements OnInit {
 
     if (!this.primeiraCarta) {
       this.primeiraCarta = carta;
+      this.clearFeedback();
     } else if (!this.segundaCarta) {
       this.segundaCarta = carta;
       this.verificarPar();
@@ -68,9 +72,11 @@ export class JogoMemoriaComponent implements OnInit {
 
   verificarPar(): void {
     if (this.primeiraCarta && this.segundaCarta) {
-      if (this.primeiraCarta.letra === this.segundaCarta.letra) {
+      if (this.primeiraCarta.letra == this.segundaCarta.letra) {
+        this.feedback = ETipoFeedback.ACERTO;
         this.resetarCartas();
       } else {
+        this.feedback = ETipoFeedback.ERRO;
         this.bloqueado = true;
         setTimeout(() => {
           if (this.primeiraCarta) this.primeiraCarta.revelado = false;
@@ -85,6 +91,10 @@ export class JogoMemoriaComponent implements OnInit {
     this.primeiraCarta = null;
     this.segundaCarta = null;
     this.bloqueado = false;
+  }
+
+  clearFeedback() {
+    this.feedback = ETipoFeedback.VAZIO;
   }
 }
 

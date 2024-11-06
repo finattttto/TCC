@@ -1,8 +1,21 @@
-<div class="grid p-fluid pt-5">
-  <div class="col-12 borda-cinza">
+<div class="grid p-fluid align-content-center" style="height: calc(100vh - 200px);">
+  <div class="feedback"> 
+    <app-feedback [tipo]="feedback" (clearFeedback)="clearFeedback()"></app-feedback>
+  </div>
+  <div class="col-12 text-center">
+    <div class="letra-sorteada">
+      {{ letraSorteada?.letra }}
+    </div>
+  </div>
+
+  <div class="col-12">
     <ul class="list-container">
-      <li *ngFor="let letra of letras" class="card-letra">
-        {{ letra.letra }}
+      <li
+        *ngFor="let opcao of opcoes"
+        class="card-letra"
+        (click)="verificarResposta(opcao)"
+      >
+        <img [src]="opcao.path" alt="Image" class="carta-imagem" />
       </li>
     </ul>
   </div>

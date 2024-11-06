@@ -1,4 +1,7 @@
 <div class="grid p-fluid align-content-center" style="height: calc(100vh - 200px);">
+  <div class="feedback"> 
+    <app-feedback [tipo]="feedback" (clearFeedback)="clearFeedback()"></app-feedback>
+  </div>
   <div class="col-12">
     <ul class="list-container">
       <li
@@ -11,7 +14,7 @@
           <img
             *ngIf="carta.figura"
             src="assets/alfabeto-manual/letra-a.png"
-            alt="Image"
+            [alt]="carta.letra"
             class="carta-imagem"
           />
           <span *ngIf="!carta.figura">{{ carta.letra }}</span>
