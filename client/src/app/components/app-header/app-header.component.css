@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .app-header {
   background-image: linear-gradient(to right, var(--bluegray-300), var(--bluegray-800));
   color: white;
@@ -9,5 +10,14 @@
 }
 
 .header-content {
-  display: contents;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.menu-container {
+  margin-left: auto; /* Alinha a div com o p-menu e p-button à direita */
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Ajuste o valor do gap conforme necessário */
 }/*# sourceMappingURL=app-header.component.css.map */

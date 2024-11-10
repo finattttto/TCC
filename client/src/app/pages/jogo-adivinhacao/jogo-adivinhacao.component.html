@@ -1,33 +1,39 @@
 <p-toast />
 <div class="grid p-fluid pt-5">
-    <div class="col-12 container-image">
-        <img [src]="getImage()" alt="Peixe" class="image">
-    </div>
-    <div class="col-12 ">
-      <ul class="list-container">
-        <li
-          *ngFor="let letra of obj.letras; let i = index"
-          class="card-letra"
-          pDroppable
-          (onDrop)="drop(i)"
-        >
-          {{ selectedLetras[i]?.letra || '_' }}
-        </li>
-      </ul>
-    </div>
-    <!-- Letras para arrastar -->
-    <div class="col-12 borda-cinza">
-      <ul class="list-container">
-        <li
-          *ngFor="let letra of letras"
-          class="card-letra"
-          pDraggable
-          (onDragStart)="dragStart(letra)"
-          (onDragEnd)="dragEnd()"
-        >
-          {{ letra.letra }}
-        </li>
-      </ul>
-    </div>
+  <div class="col-12 container-image">
+    <img [src]="getImage()" alt="Peixe" class="image" />
   </div>
-  
+  <div class="col-12">
+    <ul class="list-container">
+      <li
+        *ngFor="let letra of obj.letras; let i = index"
+        class="card-letra"
+        pDroppable
+        (onDrop)="drop(i)"
+      >
+        <img
+          *ngIf="selectedLetras[i]?.letra"
+          [src]="selectedLetras[i]?.path"
+          [alt]="letra.letra"
+          class="carta-imagem"
+        />
+        <p *ngIf="!selectedLetras[i]?.letra">{{ "_" }}</p>
+      </li>
+    </ul>
+  </div>
+  <!-- Letras para arrastar -->
+  <div class="col-12 borda-cinza">
+    <ul class="list-container">
+      <li
+        *ngFor="let letra of letras"
+        class="card-letra"
+        pDraggable
+        (onDragStart)="dragStart(letra)"
+        (onDragEnd)="dragEnd()"
+      >
+        <img [src]="letra.path" [alt]="letra.letra" class="carta-imagem" />
+        <!-- {{ letra.letra }} -->
+      </li>
+    </ul>
+  </div>
+</div>

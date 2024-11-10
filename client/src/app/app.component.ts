@@ -6,23 +6,10 @@ import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: '../styles.scss',
-  // styleUrl: './app.component.scss'
   providers: [MessageService]
 })
 export class AppComponent implements OnInit {
   title = 'client';
-  currentTheme = 'lara-light-blue';
-
-  toggleTheme() {
-    const themeLink = document.getElementById('theme-css') as HTMLLinkElement;
-    console.log(themeLink);
-    if (this.currentTheme === 'nova-dark') {
-      this.currentTheme = 'lara-light-blue'; // Muda para tema claro
-    } else {
-      this.currentTheme = 'nova-dark'; // Muda para tema escuro
-    }
-    themeLink.href = `node_modules/primeng/resources/themes/${this.currentTheme}/theme.css`;
-  }
 
   items: MenuItem[] = [
     {
@@ -65,7 +52,6 @@ export class AppComponent implements OnInit {
   constructor(public router: Router, private primengConfig: PrimeNGConfig) { }
 
   ngOnInit(): void {
-    // this.router.navigateByUrl()
     this.primengConfig.ripple = true;
   }
 }

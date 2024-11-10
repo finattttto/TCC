@@ -11,13 +11,18 @@ import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { PaginaInicialComponent } from './pages/pagina-inicial/pagina-inicial.component';
 import { InputTextModule } from 'primeng/inputtext';
-import { AppHeaderComponent } from './pages/app-header/app-header.component';
+import { AppHeaderComponent } from './components/app-header/app-header.component';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ToastModule } from 'primeng/toast';
 import { JogoAlfabetoManualComponent } from './pages/jogo-alfabeto-manual/jogo-alfabeto-manual.component';
 import { JogoMemoriaComponent } from './pages/jogo-memoria/jogo-memoria.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
+import { MenuModule } from 'primeng/menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TelaCadastroUsuarioComponent } from './pages/tela-cadastro-usuario/tela-cadastro-usuario.component';
+import { TelaLoginUsuarioComponent } from './pages/tela-login-usuario/tela-login-usuario.component';
+
 
 @NgModule({
     declarations: [
@@ -27,21 +32,25 @@ import { FeedbackComponent } from './components/feedback/feedback.component';
         JogoAdivinhacaoComponent,
         JogoAlfabetoManualComponent,
         JogoMemoriaComponent,
-        FeedbackComponent
+        FeedbackComponent,
+        TelaCadastroUsuarioComponent,
+        TelaLoginUsuarioComponent
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         RouterOutlet,
         RouterModule.forRoot(routes),
+        AvatarGroupModule,
+        AvatarModule,
+        ButtonModule,
+        CardModule,
         DockModule,
-        InputTextModule,
         DragDropModule,
         FormsModule,
-        ButtonModule,
-        AvatarModule,
-        AvatarGroupModule,
-        CardModule,
-        ToastModule
+        InputTextModule,
+        MenuModule,
+        ToastModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

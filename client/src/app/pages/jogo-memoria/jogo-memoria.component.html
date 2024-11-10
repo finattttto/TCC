@@ -13,7 +13,7 @@
         <ng-container *ngIf="carta.revelado">
           <img
             *ngIf="carta.figura"
-            src="assets/alfabeto-manual/letra-a.png"
+            [src]="carta.path"
             [alt]="carta.letra"
             class="carta-imagem"
           />

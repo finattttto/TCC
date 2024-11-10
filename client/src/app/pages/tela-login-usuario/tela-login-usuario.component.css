@@ -1,0 +1,10 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 200px);
+}
+
+.login-card {
+  max-width: 600px;
+}/*# sourceMappingURL=tela-login-usuario.component.css.map */

@@ -1,0 +1,12 @@
+<header class="app-header">
+  <div class="header-content">
+    <h1 class="site-name">Libras</h1>
+    <div class="menu-container flex align-items-center gap-2">
+      <p-menu #menu [model]="items" appendTo="body" [popup]="true"></p-menu>
+      <p-button
+        (onClick)="menu.toggle($event)"
+        icon="pi pi-ellipsis-v"
+      ></p-button>
+    </div>
+  </div>
+</header>
