@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import { Usuario } from "../entity/Usuario";
 import configJwt from "../jwt/config-jwt";
-import { decrypt } from "../cipher";
+import { decrypt, encrypt } from "../cipher";
 import { AppDataSource } from "../persistence/data-source";
 
 class AuthController {
@@ -26,6 +26,28 @@ class AuthController {
     }
 
     return response.status(401).send("Usuário ou senha incorretos!");
+  }
+
+  public async cadastro(request: Request, response: Response) {
+    try {
+      const user = request.body as Usuario;
+      const usuarioRepository = AppDataSource.getRepository(Usuario);
+      
+      user.password = encrypt(user?.password);
+      const saved = await usuarioRepository.save(user);
+
+      const newToken = jwt.sign(
+        { username: user.username },
+        configJwt.jwtSecret
+      );
+
+      return response.status(200).json({
+        usuario: saved,
+        token: newToken,
+      });
+    } catch (e: any) {
+      return response.status(500).send(e?.message);
+    }
   }
 }
 

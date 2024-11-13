@@ -22,6 +22,8 @@ import { MenuModule } from 'primeng/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TelaCadastroUsuarioComponent } from './pages/tela-cadastro-usuario/tela-cadastro-usuario.component';
 import { TelaLoginUsuarioComponent } from './pages/tela-login-usuario/tela-login-usuario.component';
+import { PasswordModule } from 'primeng/password';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 
 @NgModule({
@@ -34,7 +36,7 @@ import { TelaLoginUsuarioComponent } from './pages/tela-login-usuario/tela-login
         JogoMemoriaComponent,
         FeedbackComponent,
         TelaCadastroUsuarioComponent,
-        TelaLoginUsuarioComponent
+        TelaLoginUsuarioComponent,
     ],
     imports: [
         BrowserModule,
@@ -51,8 +53,9 @@ import { TelaLoginUsuarioComponent } from './pages/tela-login-usuario/tela-login
         InputTextModule,
         MenuModule,
         ToastModule,
+        PasswordModule
     ],
-    providers: [],
+    providers: [provideHttpClient(withInterceptorsFromDi())],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

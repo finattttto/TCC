@@ -12,6 +12,9 @@ const routes = Router();
 routes.route('/login')
   .post(AuthController.login);
 
+routes.route('/cadastro')
+  .post(AuthController.cadastro);
+
 routes.use(checkJwt);
 
 routes.route('/palavra')

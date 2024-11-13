@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import letrasData from '../../data/alfabeto-manual.json';
-import { Letra } from 'src/app/model/interface/letra';
 import { ETipoFeedback } from 'src/app/model/enum/EFeedback';
+import { Letra } from 'src/app/model/interface/ILetra';
 
 @Component({
   selector: 'app-jogo-memoria',

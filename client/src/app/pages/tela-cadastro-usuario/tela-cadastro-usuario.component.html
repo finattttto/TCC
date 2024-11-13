@@ -1,1 +1,51 @@
-<p>tela-cadastro-usuario works!</p>
+<div class="cadastro-container">
+  <p-card header="Cadastro de Usuário">
+    <div class="p-fluid grid cadastro-card">
+      <div class="p-field col-6">
+        <label for="username">Usuário</label>
+        <input
+          id="username"
+          type="text"
+          pInputText
+          [(ngModel)]="user.username"
+        />
+      </div>
+      <div class="p-field col-6">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="text"
+          pInputText
+          [(ngModel)]="user.email"
+        />
+      </div>
+      <div class="p-field col-6">
+        <label for="password">Senha</label>
+        <p-password
+          [(ngModel)]="user.password"
+          [toggleMask]="true"
+          promptLabel="Digite sua senha"
+          weakLabel="Fácil"
+          mediumLabel="Média"
+          strongLabel="Forte"
+        />
+      </div>
+      <div class="p-field col-6">
+        <label for="password">Confirme sua Senha</label>
+        <p-password
+          [(ngModel)]="confirmPassword"
+          [toggleMask]="true"
+          [feedback]="false"
+        />
+      </div>
+      <div class="col"></div>
+      <div class="col-3">
+        <p-button
+          label="Cadastrar"
+          (onClick)="onCadastro()"
+          icon="pi pi-sign-in"
+        ></p-button>
+      </div>
+    </div>
+  </p-card>
+</div>
