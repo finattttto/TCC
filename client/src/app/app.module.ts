@@ -24,6 +24,11 @@ import { TelaCadastroUsuarioComponent } from './pages/tela-cadastro-usuario/tela
 import { TelaLoginUsuarioComponent } from './pages/tela-login-usuario/tela-login-usuario.component';
 import { PasswordModule } from 'primeng/password';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { InputOtpModule } from 'primeng/inputotp';
+import { TelaCadastroPalavraComponent } from './pages/tela-cadastro-palavra/tela-cadastro-palavra.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 @NgModule({
@@ -36,6 +41,7 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
         JogoMemoriaComponent,
         FeedbackComponent,
         TelaCadastroUsuarioComponent,
+        TelaCadastroPalavraComponent,
         TelaLoginUsuarioComponent,
     ],
     imports: [
@@ -49,11 +55,15 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
         CardModule,
         DockModule,
         DragDropModule,
+        FileUploadModule,
         FormsModule,
         InputTextModule,
+        InputOtpModule,
+        InputNumberModule,
         MenuModule,
         ToastModule,
-        PasswordModule
+        PasswordModule,
+        RadioButtonModule
     ],
     providers: [provideHttpClient(withInterceptorsFromDi())],
     bootstrap: [AppComponent]

@@ -6,13 +6,16 @@ import { Usuario } from "./Usuario";
 export class Personagem extends GenericEntity {
 
     @Column({nullable: true})
-    atividade: string;
+    nome: string;
     
-    @Column({default: false})
-    pacotePadrao: string;
+    @Column({nullable: true})
+    dataNascimento: Date;
 
-    @Column({default: 0, nullable: true})
-    total: number;
+    @Column({default: 1, nullable: true})
+    nivel: number;
+
+    @Column({nullable: true, type: 'text'})
+	avatar: string;
     
     @ManyToOne(
         () => Usuario,

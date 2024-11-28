@@ -23,7 +23,14 @@ export class AppHeaderComponent {
         label: 'Cadastrar',
         icon: 'pi pi-user-plus',
         command: () => {
-          this.router.navigateByUrl('/cadastro');
+          this.router.navigateByUrl('/cadastro-user');
+        },
+      },
+      {
+        label: 'Nova imagem',
+        icon: 'pi pi-user-plus',
+        command: () => {
+          this.router.navigateByUrl('/cadastro-palavra');
         },
       },
     ];

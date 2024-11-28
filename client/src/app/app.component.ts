@@ -9,7 +9,8 @@ import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
   providers: [MessageService]
 })
 export class AppComponent implements OnInit {
-  title = 'client';
+
+  title = 'Jogo Libras';
 
   items: MenuItem[] = [
     {
@@ -49,9 +50,15 @@ export class AppComponent implements OnInit {
     },
   ];
 
+  allowedRoutes = ['/adivinhacao', '/alfabeto-manual', '/jogo-memoria', '/'];
+
   constructor(public router: Router, private primengConfig: PrimeNGConfig) { }
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
+  }
+
+  isDockVisible(): boolean {
+    return this.allowedRoutes.includes(this.router.url);
   }
 }

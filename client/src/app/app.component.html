@@ -2,7 +2,7 @@
 
 <app-header></app-header>
 
-<div class="card">
+<div class="card" *ngIf="isDockVisible()">
   <div class="dock-window">
     <p-dock [model]="items" position="bottom">
       <ng-template pTemplate="item" let-item>

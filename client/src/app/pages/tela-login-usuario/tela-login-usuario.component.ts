@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { UserService } from 'src/app/service/user-service';
+import { UserService } from 'src/app/service/user.service';
+import { UtilService } from 'src/app/service/util.service';
 
 @Component({
   selector: 'app-tela-login-usuario',
@@ -21,12 +22,12 @@ export class TelaLoginUsuarioComponent {
     this.userService.login({username: this.username, password: this.password}).subscribe({
       next: (value) => {
         if (value?.token) {
-          localStorage.setItem('auth', value.token);
+          UtilService.setAuth(value.token);
+          this.msg.add({
+            severity: 'success',
+            detail: 'Login realizado com sucesso!',
+          });
         }
-        this.msg.add({
-          severity: 'success',
-          detail: 'Login realizado com sucesso!',
-        });
       },
       error: (err) => {
         this.msg.add({

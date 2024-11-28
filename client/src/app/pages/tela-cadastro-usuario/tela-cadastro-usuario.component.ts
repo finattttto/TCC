@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Usuario } from 'src/app/model/Usuario';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
-import { UserService } from 'src/app/service/user-service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-tela-cadastro-usuario',
