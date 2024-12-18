@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ELocalStorageKeys } from '../service/util.service';
 
 export interface IUriBuilder {
   subpath(subpath: string): IUriBuilder;
@@ -57,7 +58,7 @@ export class HttpRequest<T> implements IHttpRequest<T> {
   }
 
   private getToken(): string {
-    return localStorage.getItem('auth') || '';
+    return localStorage.getItem(ELocalStorageKeys.AUTH_LIBRAS) || '';
   }
 
   body(val: T): IHttpRequest<T> {
@@ -68,7 +69,7 @@ export class HttpRequest<T> implements IHttpRequest<T> {
   private buildHeaders(useCustomToken = false): HttpHeaders {
     const headers = new HttpHeaders({
       Accept: 'application/json; charset=utf-8',
-      auth: useCustomToken ? (this._headers.get('auth') || this.getToken()) : this.getToken(),
+      auth: this.getToken(),
     });
 
     this._headers.forEach((value, key) => {

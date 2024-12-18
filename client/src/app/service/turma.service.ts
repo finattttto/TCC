@@ -10,7 +10,7 @@ import { ConfirmationService } from 'primeng/api';
 export class TurmaService extends AbstractService<Turma> {
   override endpoint: string = 'turma';
 
-  constructor(http: HttpClient, confirmation: ConfirmationService) {
-    super(http, confirmation);
+  constructor(http: HttpClient) {
+    super(http);
   }
 }

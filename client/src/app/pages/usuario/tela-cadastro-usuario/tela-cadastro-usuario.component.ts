@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Usuario } from 'src/app/model/Usuario';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { UserService } from 'src/app/service/user.service';
+import { ELocalStorageKeys } from 'src/app/service/util.service';
 
 @Component({
   selector: 'app-tela-cadastro-usuario',
@@ -28,7 +29,7 @@ export class TelaCadastroUsuarioComponent {
       this.userService.cadastroRequest(this.user).subscribe({
         next: (value) => {
           if (value?.token) {
-            localStorage.setItem('auth', value.token);
+            localStorage.setItem(ELocalStorageKeys.AUTH_LIBRAS, value.token);
           }
           this.msg.add({
             severity: 'success',

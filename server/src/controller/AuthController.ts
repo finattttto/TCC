@@ -17,7 +17,7 @@ class AuthController {
 
       const decrypted = decrypt(user?.password);
       if (decrypted == password) {
-        const newToken = jwt.sign({ username }, configJwt.jwtSecret);
+        const newToken = jwt.sign({ username, id: user.id }, configJwt.jwtSecret);
         return response.status(200).json({
           usuario: user,
           token: newToken,
@@ -37,7 +37,7 @@ class AuthController {
       const saved = await usuarioRepository.save(user);
 
       const newToken = jwt.sign(
-        { username: user.username },
+        { id: saved.id, username: user.username },
         configJwt.jwtSecret
       );
 

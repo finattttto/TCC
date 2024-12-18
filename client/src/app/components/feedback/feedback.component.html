@@ -1,6 +1,35 @@
 <div class="container">
-    <img [hidden]="tipo != 'ACERTO'" src="assets/raccoon/gif/victory-dance.gif" alt="Avatar" style="max-width: 320px; padding-left: 10px">
-    <img [hidden]="tipo != 'ERRO'" src="assets/raccoon/gif/crouch.gif" alt="Avatar" style="max-width: 310px; margin-left: 18px; margin-bottom: 15px">
-    <img [hidden]="tipo != 'VAZIO'" src="assets/raccoon/raccoon.png" alt="Avatar" style="max-width: 300px;">
-    <span class="message">{{mensagem}}</span>
+  <img
+    [hidden]="tipo != 'ACERTO'"
+    src="assets/raccoon/gif/victory-dance.gif"
+    alt="Avatar"
+    style="max-width: 320px; padding-left: 10px"
+  />
+  <img
+    [hidden]="tipo != 'ERRO'"
+    src="assets/raccoon/gif/crouch.gif"
+    alt="Avatar"
+    style="max-width: 310px; margin-left: 18px; margin-bottom: 15px"
+  />
+  <img
+    [hidden]="tipo != 'VAZIO'"
+    src="assets/raccoon/raccoon.png"
+    alt="Avatar"
+    style="max-width: 300px"
+  />
+
+  <div style="display: flex; align-items: center;"> 
+    <img
+      [hidden]="tipo != 'ACERTO'"
+      src="https://images.emojiterra.com/google/android-pie/512px/1f44d.png"
+      alt=""
+      style="max-width: 100px;"
+    />
+    <img
+      [hidden]="tipo != 'ERRO'"
+      src="https://images.emojiterra.com/google/android-pie/512px/1f44e.png"
+      alt="Erro"
+      style="max-width: 100px"
+    />
+  </div>
 </div>

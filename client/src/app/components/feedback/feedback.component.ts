@@ -28,7 +28,6 @@ export class FeedbackComponent {
 
   changeMessage() {
     if (this._tipo === ETipoFeedback.VAZIO) {
-      this.mensagem = '';
       return;
     }
     const mensagens = EFeedback.padrao.filter((m) => m.value === this._tipo);
@@ -43,7 +42,6 @@ export class FeedbackComponent {
     }
 
     this.timeoutId = setTimeout(() => {
-      this.mensagem = "";
       this._tipo = ETipoFeedback.VAZIO;
       this.clearFeedback.emit();
       this.timeoutId = null;

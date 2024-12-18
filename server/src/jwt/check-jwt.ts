@@ -3,6 +3,7 @@ import * as jwt from "jsonwebtoken";
 import configJwt from "./config-jwt";
 
 export const HEADER_USERNAME = "username";
+export const HEADER_USER_ID = "id";
 export const HEADER_AUTH = "auth";
 
 export const checkJwt = async (req: Request, res: Response, next: NextFunction) => {
@@ -16,6 +17,8 @@ export const checkJwt = async (req: Request, res: Response, next: NextFunction) 
     return;
   }
 
-  req.headers[HEADER_USERNAME] = jwtPayload.username;
+  req.headers[HEADER_USER_ID] = jwtPayload[HEADER_USER_ID];
+  req.headers[HEADER_USERNAME] = jwtPayload[HEADER_USERNAME];
+  
   next();
 };

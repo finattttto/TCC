@@ -1,1 +1,95 @@
-<p>pagina-inicial works!</p>
+<div class="container">
+  <img src="assets/raccoon/raccoon.png" alt="Avatar" class="avatar" />
+  <div *ngIf="etapa == 'PADRAO'" class="buttons">
+    <div>
+      <button
+        class="button-game p-button-help"
+        pButton
+        label="Jogar"
+        (click)="play()"
+      ></button>
+    </div>
+    <div>
+      <button
+        pButton
+        class="button-game p-button-info"
+        label="Novo personagem"
+        (click)="etapa = 'NOVO_PERSONAGEM'"
+      ></button>
+    </div>
+    <div>
+      <button
+        pButton
+        class="button-game p-button-success"
+        label="Selecionar personagem"
+        (click)="play()"
+      ></button>
+    </div>
+  </div>
+  <div
+    *ngIf="etapa == 'NOVO_PERSONAGEM'"
+    class="grid p-fluid"
+    style="width: 300px"
+  >
+    <div class="col-12 content-avatar">
+      <div class="avatar-personagem">
+        <img
+          src="https://www.shareicon.net/data/512x512/2016/06/25/786551_people_512x512.png"
+          alt="Avatar"
+        />
+      </div>
+    </div>
+    <div class="col-12">
+      <input
+        class="mt-2"
+        id="nome"
+        type="text"
+        pInputText
+        [(ngModel)]="personagem.nome"
+      />
+    </div>
+    <div class="grid p-fluid col-12">
+      <div class="col-fixed">
+        <button
+          pButton
+          class="p-button-info"
+          label="Voltar"
+          (click)="(etapa = 'PADRAO')"
+        ></button>
+      </div>
+      <div class="col"></div>
+      <div class="col-fixed">
+        <button
+          pButton
+          class="p-button-success"
+          label="Salvar"
+          (click)="savePersonagem()"
+        ></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <p-dialog
+  header="Personagem"
+  [modal]="true"
+  [(visible)]="visibleNovoPersonagem"
+  [style]="{ width: '25rem' }"
+>
+  <div class="flex align-items-center gap-3 mb-3">
+    <label for="username" class="font-semibold w-6rem">Username</label>
+    <input pInputText id="username" class="flex-auto" autocomplete="off" />
+  </div>
+  <div class="flex align-items-center gap-3 mb-5">
+    <label for="email" class="font-semibold w-6rem">Email</label>
+    <input pInputText id="email" class="flex-auto" autocomplete="off" />
+  </div>
+  <div class="flex justify-content-end gap-2">
+    <p-button
+      label="Cancel"
+      severity="secondary"
+      (onClick)="visibleNovoPersonagem = false"
+    />
+    <p-button label="Save" (onClick)="savePersonagem()" />
+  </div>
+</p-dialog> -->

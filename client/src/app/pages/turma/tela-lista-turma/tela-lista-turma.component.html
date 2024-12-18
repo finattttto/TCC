@@ -1,0 +1,35 @@
+<div class="grupo-scroll">
+    <div class="p-fluid grid cadastro-card">
+      <div class="col-12">
+        <h2>Lista de turmas</h2>
+      </div>
+      <div class="col-12">
+        <p-table [value]="turmas" [tableStyle]="{ 'min-width': '60rem' }">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Descrição</th>
+              <th>Código</th>
+              <th>Palavras</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-turma>
+            <tr>
+              <td>{{ turma.nome }}</td>
+              <td>{{ turma.codigo }}</td>
+              <td>{{ turma.palavras?.length }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  <div class="rodape grid">
+    <div class="col-12 p-0">
+      <hr />
+    </div>
+    <div>
+      <h4>{{turmas?.length || 0}} listas encontradas</h4>
+    </div>
+    <div class="col"></div>
+  </div>
+  

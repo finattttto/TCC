@@ -4,6 +4,8 @@ import {Request, Response} from 'express';
 import { IController } from './IController';
 import { Palavra } from '../entity/Palavra';
 import { AppDataSource } from '../persistence/data-source';
+import { HEADER_USER_ID } from '../jwt/check-jwt';
+import e from 'cors';
 
 class PalavraController
     extends GenericController<Palavra>
@@ -17,6 +19,10 @@ class PalavraController
   }
   
   public async save(request: Request, response: Response) {
+    if(!!request?.headers?.[HEADER_USER_ID]) {
+      request.body.usuario = {id: request.headers[HEADER_USER_ID]}
+    } else request.body.usuario = null;
+    
     return super.save(
         request,
         response,

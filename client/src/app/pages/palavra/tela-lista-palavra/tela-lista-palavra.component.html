@@ -1,0 +1,40 @@
+<div class="grupo-scroll">
+  <div class="p-fluid grid cadastro-card">
+    <div class="col-12">
+      <h2>Lista de palavras</h2>
+    </div>
+    <div class="col-12">
+      <p-table [value]="palavras" [tableStyle]="{ 'min-width': '60rem' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Palavra</th>
+            <th>Imagem</th>
+            <th style="width: 15%;">Dificuldade</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-palavra>
+          <tr>
+            <td>{{ palavra.descricao }}</td>
+            <td>
+              <img
+                [src]="palavra.imagem"
+                [alt]="palavra.descricao"
+                class="imagem-lista"
+              />
+            </td>
+            <td style="width: 15%;">{{ palavra.dificuldade }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+<div class="rodape grid">
+  <div class="col-12 p-0">
+    <hr />
+  </div>
+  <div>
+    <h4>{{palavras?.length || 0}} palavras encontradas</h4>
+  </div>
+  <div class="col"></div>
+</div>

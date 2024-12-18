@@ -1,7 +1,7 @@
 <p-toast />
 <div class="grid p-fluid pt-5">
   <div class="col-12 container-image">
-    <img [src]="getImage()" alt="Peixe" class="image" />
+    <img *ngIf="getImage()" [src]="getImage()" alt="Imagem" class="image" />
   </div>
   <div class="col-12">
     <ul class="list-container">

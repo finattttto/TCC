@@ -13,6 +13,13 @@ export class AppHeaderComponent {
   constructor(public router: Router) {
     this.items = [
       {
+        label: 'Inicio',
+        icon: 'pi pi-user-plus',
+        command: () => {
+          this.router.navigateByUrl('');
+        },
+      },
+      {
         label: 'Entrar',
         icon: 'pi pi-sign-in',
         command: () => {
@@ -27,10 +34,10 @@ export class AppHeaderComponent {
         },
       },
       {
-        label: 'Nova imagem',
+        label: 'Admin page',
         icon: 'pi pi-user-plus',
         command: () => {
-          this.router.navigateByUrl('/cadastro-palavra');
+          this.router.navigateByUrl('/inicio-admin');
         },
       },
     ];

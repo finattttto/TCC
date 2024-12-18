@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import letrasData from '../../data/alfabeto-manual.json';
 import { MessageService } from 'primeng/api';
 import { Letra } from 'src/app/model/interface/ILetra';
+import { PalavraService } from 'src/app/service/palavra.service';
+import { Palavra } from 'src/app/model/Palavra';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-jogo-adivinhacao',
@@ -15,27 +18,49 @@ export class JogoAdivinhacaoComponent implements OnInit {
   draggedLetra: Letra;
   selectedLetras: (Letra | null)[] = [];
 
-  obj: PalavraJogoAdivinhacao;
+  obj: PalavraJogoAdivinhacaoDTO;
+
+  palavras: Palavra[] = [];
+  selectedPalavra: Palavra;
 
   constructor(
-    public msg: MessageService
+    public msg: MessageService,
+    public palavraService: PalavraService
   ) {
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.letras = letrasData;
+    this.palavras = await firstValueFrom(this.palavraService.getAllRequest([{pacotePadrao: false}], 0, 100));
+    await this.geraNovaPalavra();
+  }
+
+  async geraNovaPalavra() {
+    this.selectedPalavra = this.palavras[Math.floor(Math.random() * this.palavras.length)];
+
     this.obj = {
-      palavra: "PEIXE",
-      letras: ["P", "E", "I", "X", "E"],
+      palavra: this.selectedPalavra.descricao.toUpperCase(),
+      letras: this.selectedPalavra.descricao.toUpperCase().split(""),
       acertos: []
     }
 
     this.selectedLetras = Array(this.obj.palavra.length).fill(null);
   }
 
+  async palavraCompleta() {
+    this.msg.add({
+      severity: "success",
+      summary: "Aviso",
+      detail: "Parabéns!",
+    })
+    setTimeout(async () => {
+      await this.geraNovaPalavra();
+    }, 1000)
+  }
+
   getImage(){
-    return "https://png.pngtree.com/png-vector/20240130/ourmid/pngtree-cute-fish-cartoon-png-image_11519691.png";
+    return this.selectedPalavra.imagem;
   }
 
   dragStart(letra: Letra) {
@@ -46,6 +71,9 @@ export class JogoAdivinhacaoComponent implements OnInit {
     if (this.draggedLetra && this.obj.letras[index] === this.draggedLetra.letra) {
       this.selectedLetras[index] = this.draggedLetra;
       this.obj.acertos[index] = this.draggedLetra.letra;
+      if(this.obj.letras.length == this.obj.acertos.length) {
+        this.palavraCompleta();
+      }
     } else {
       this.msg.add({
         severity: "info",
@@ -73,7 +101,7 @@ export class JogoAdivinhacaoComponent implements OnInit {
   }
 }
 
-export interface PalavraJogoAdivinhacao {
+export interface PalavraJogoAdivinhacaoDTO {
   palavra: string;
   letras: string[];
   acertos: string[];

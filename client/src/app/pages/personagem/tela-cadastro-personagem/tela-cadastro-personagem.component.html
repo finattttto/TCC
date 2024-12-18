@@ -1,0 +1,56 @@
+<div class="grupo-scroll">
+  <div class="p-fluid grid">
+    <div class="col-12">
+      <h2>Novo personagem</h2>
+    </div>
+    <div class="grid p-fluid col-8">
+      <div class="col-12">
+        <label for="nome">Nome</label>
+        <input
+          class="mt-2"
+          id="nome"
+          type="text"
+          pInputText
+          [(ngModel)]="personagem.nome"
+        />
+      </div>
+      <div class="col-6">
+        <label for="dataNascimento">Data de nascimento</label>
+        <p-calendar
+          [(ngModel)]="personagem.dataNascimento"
+          [showIcon]="true"
+          [showOnFocus]="false"
+          inputId="buttondisplay"
+        />
+      </div>
+      <div class="col-6">
+        <label for="nivel">Nível</label>
+        <p-inputNumber
+          [(ngModel)]="personagem.nivel"
+          mode="decimal"
+          inputId="withoutgrouping"
+          [useGrouping]="false"
+        />
+      </div>
+    </div>
+    <div class="col-4 content-avatar">
+      <div class="avatar">
+        <img src="https://www.shareicon.net/data/512x512/2016/06/25/786551_people_512x512.png" alt="Avatar" />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="rodape grid">
+  <div class="col-12 p-0">
+    <hr />
+  </div>
+  <div class="col"></div>
+  <div class="col-fixed">
+    <p-button
+      label="Cadastrar"
+      icon="pi pi-check"
+      iconPos="right"
+      (onClick)="save()"
+    ></p-button>
+  </div>
+</div>

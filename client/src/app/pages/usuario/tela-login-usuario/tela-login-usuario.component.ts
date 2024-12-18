@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { UserService } from 'src/app/service/user.service';
 import { UtilService } from 'src/app/service/util.service';
@@ -12,7 +13,8 @@ export class TelaLoginUsuarioComponent {
 
   constructor(
     public userService: UserService,
-    public msg: MessageService
+    public msg: MessageService, 
+    private router: Router
   ) {}
 
   username: string = '';
@@ -22,11 +24,13 @@ export class TelaLoginUsuarioComponent {
     this.userService.login({username: this.username, password: this.password}).subscribe({
       next: (value) => {
         if (value?.token) {
+          UtilService.setUsuario(value.usuario)
           UtilService.setAuth(value.token);
           this.msg.add({
             severity: 'success',
             detail: 'Login realizado com sucesso!',
           });
+          this.router.navigateByUrl("/inicio-admin")
         }
       },
       error: (err) => {

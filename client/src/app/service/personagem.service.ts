@@ -10,7 +10,7 @@ import { ConfirmationService } from 'primeng/api';
 export class PersonagemService extends AbstractService<Personagem> {
   override endpoint: string = 'personagem';
 
-  constructor(http: HttpClient, confirmation: ConfirmationService) {
-    super(http, confirmation);
+  constructor(http: HttpClient) {
+    super(http);
   }
 }

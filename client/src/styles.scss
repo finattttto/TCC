@@ -3,7 +3,7 @@
 @import "../node_modules/primeflex/primeflex.scss";
 @import "../node_modules/primeicons/primeicons.css";
 
-$bordas: #3c3c3c;
+@import "assets/layout/layout.scss";
 
 :root {
   font-synthesis: none;
@@ -17,21 +17,16 @@ body {
   padding: 0;
   box-sizing: border-box;
 
+  margin: 0;
+  padding: 0;
+}
+
+body.custom-background {
   background-image: url('/assets/battleback.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
-.background-content {
-  background-image: url("/src/assets/battleback.png") !important;
-  background-color: black;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .content {
@@ -43,4 +38,24 @@ body {
 .borda-cinza {
   border: solid $bordas 1px;
   border-radius: 8px;
+}
+
+.grupo-scroll {
+  flex: 1;
+  overflow-y: auto; 
+  height: calc(100vh - 250px); 
+  scrollbar-width: none;
+  padding: 0px 16px; 
+  box-sizing: border-box;
+}
+
+.rodape {
+  position: sticky;
+  bottom: 0; 
+  padding: 8px 16px; 
+  display: flex;
+}
+
+.imagem-lista {
+  max-width: 100px;
 }
