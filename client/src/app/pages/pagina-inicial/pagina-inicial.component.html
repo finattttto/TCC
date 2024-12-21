@@ -1,6 +1,28 @@
 <div class="container">
-  <img src="assets/raccoon/raccoon.png" alt="Avatar" class="avatar" />
+  <img
+    [hidden]="isMoving"
+    src="assets/raccoon/raccoon.png"
+    alt="Avatar"
+    class="avatar"
+  />
+  <img
+    [hidden]="!isMoving"
+    src="assets/raccoon/gif/victory-dance.gif"
+    alt="Avatar"
+    class="avatar-moving"
+  />
   <div *ngIf="etapa == 'PADRAO'" class="buttons">
+    <div *ngIf="personagemAtivo">
+      <button
+        class="button-game p-button-help"
+        pButton
+        label="Meu personagem"
+        (click)="editarPersonagem()"
+      ></button>
+    </div>
+    <div *ngIf="personagemAtivo" class="m-0">
+      <hr />
+    </div>
     <div>
       <button
         class="button-game p-button-help"
@@ -14,7 +36,7 @@
         pButton
         class="button-game p-button-info"
         label="Novo personagem"
-        (click)="etapa = 'NOVO_PERSONAGEM'"
+        (click)="novoPersonagem()"
       ></button>
     </div>
     <div>
@@ -22,7 +44,7 @@
         pButton
         class="button-game p-button-success"
         label="Selecionar personagem"
-        (click)="play()"
+        (click)="selecionarPersonagem()"
       ></button>
     </div>
   </div>
@@ -54,7 +76,7 @@
           pButton
           class="p-button-info"
           label="Voltar"
-          (click)="(etapa = 'PADRAO')"
+          (click)="etapa = 'PADRAO'"
         ></button>
       </div>
       <div class="col"></div>
@@ -66,6 +88,19 @@
           (click)="savePersonagem()"
         ></button>
       </div>
+    </div>
+  </div>
+  <div
+    *ngIf="etapa == 'SELECAO_PERSONAGEM'"
+    class="grid p-fluid container-selecao"
+  >
+    <div *ngFor="let p of personagens" class="div-selecao">
+      <button
+        class="button-selecao p-button-secondary"
+        pButton
+        [label]="p.nome"
+        (click)="selectPersonagem(p)"
+      ></button>
     </div>
   </div>
 </div>

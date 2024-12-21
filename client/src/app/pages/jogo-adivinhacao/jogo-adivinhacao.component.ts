@@ -32,7 +32,7 @@ export class JogoAdivinhacaoComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.letras = letrasData;
-    this.palavras = await firstValueFrom(this.palavraService.getAllRequest([{pacotePadrao: false}], 0, 100));
+    this.palavras = await firstValueFrom(this.palavraService.getAllRequest(undefined, 0, 100));
     await this.geraNovaPalavra();
   }
 
