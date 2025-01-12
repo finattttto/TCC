@@ -1,9 +1,25 @@
-<div class="grid p-fluid align-content-center" style="height: calc(100vh - 200px);">
-  <div class="feedback"> 
-    <app-feedback [tipo]="feedback" (clearFeedback)="clearFeedback()"></app-feedback>
+<app-pontuacao
+  [jogador]="'João Silva'"
+  [acertos]="0"
+  [erros]="0"
+></app-pontuacao>
+
+<div
+  class="grid p-fluid align-content-center"
+  style="height: calc(100vh - 200px)"
+>
+  <div class="feedback">
+    <app-feedback
+      [tipo]="feedback"
+      (clearFeedback)="clearFeedback()"
+    ></app-feedback>
   </div>
-  <div class="col-12 text-center">
-    <div class="letra-sorteada">
+  <div class="col-12 text-center pb-5">
+    <div
+      class="letra-sorteada"
+      [ngClass]="{ 'pulse-once': animacao }"
+      (animationend)="fimAnimacao()"
+    >
       {{ letraSorteada?.letra }}
     </div>
   </div>
@@ -13,10 +29,25 @@
       <li
         *ngFor="let opcao of opcoes"
         class="card-letra"
+        [ngClass]="{ 'card-hover': opcao.pendente && !acerto }"
         (click)="verificarResposta(opcao)"
       >
-        <img [src]="opcao.path" alt="Image" class="carta-imagem" />
+        <img [src]="opcao.letra.path" alt="Image" class="carta-imagem" />
+        <div *ngIf="!opcao.pendente" class="erro-overlay">✖</div>
+        <div *ngIf="getAcerto(opcao.letra)" class="acerto-overlay"></div>
       </li>
     </ul>
   </div>
+</div>
+<div class="botao-novo-jogo" *ngIf="acerto">
+  <button
+    severity="success"
+    size="large"
+    [rounded]="true"
+    pButton
+    label="Jogar"
+    icon="pi pi-replay"
+    iconPos="right"
+    (click)="novoJogo()"
+  ></button>
 </div>

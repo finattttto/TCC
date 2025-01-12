@@ -18,11 +18,23 @@ export class JogoMemoriaComponent implements OnInit {
 
   feedback: ETipoFeedback = ETipoFeedback.VAZIO;
 
+  aguardandoInicio: boolean = false;
+  endGame: boolean = false;
+
   constructor(public msg: MessageService) {}
 
   ngOnInit(): void {
+    this.novoJogo();
+  }
+
+  novoJogo() {
+    this.endGame = false;
     this.letras = this.sorteador();
     this.cartas = this.criarCartas();
+
+    setTimeout(() => {
+      this.cartas.forEach((c) => c.revelado = false)
+    }, 5000)
   }
 
   sorteador(): Letra[] {
@@ -37,12 +49,12 @@ export class JogoMemoriaComponent implements OnInit {
   criarCartas(): Carta[] {
     const cartasLetra= [...this.letras].map(letra => ({
       ...letra,
-      revelado: false,
+      revelado: true,
       figura: false
     }));
     const cartasImagem = [...this.letras].map(letra => ({
       ...letra,
-      revelado: false,
+      revelado: true,
       figura: true
     }))
     return this.embaralhar([...cartasLetra, ...cartasImagem]);
@@ -75,6 +87,9 @@ export class JogoMemoriaComponent implements OnInit {
       if (this.primeiraCarta.letra == this.segundaCarta.letra) {
         this.feedback = ETipoFeedback.ACERTO;
         this.resetarCartas();
+        if(this.cartas.every((c) => c.revelado)) {
+          this.endGame = true;
+        }
       } else {
         this.feedback = ETipoFeedback.ERRO;
         this.bloqueado = true;

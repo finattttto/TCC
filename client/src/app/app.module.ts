@@ -40,11 +40,15 @@ import { TelaCadastroTurmaComponent } from './pages/turma/tela-cadastro-turma/te
 import { DividerModule } from 'primeng/divider';
 import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
-import { AutoComplete, AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TelaListaPersonagemComponent } from './pages/personagem/tela-lista-personagem/tela-lista-personagem.component';
 import { TelaCadastroPersonagemComponent } from './pages/personagem/tela-cadastro-personagem/tela-cadastro-personagem.component';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
+import { PontuacaoComponent } from './components/pontuacao/pontuacao.component';
+import { RatingModule } from 'primeng/rating';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
 
 @NgModule({
     // schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -59,6 +63,7 @@ import { DialogModule } from 'primeng/dialog';
         JogoAlfabetoManualComponent,
         JogoMemoriaComponent,
         FeedbackComponent,
+        PontuacaoComponent,
         TelaCadastroUsuarioComponent,
         TelaCadastroPalavraComponent,
         TelaListaPalavraComponent,
@@ -95,7 +100,9 @@ import { DialogModule } from 'primeng/dialog';
         TableModule,
         AutoCompleteModule,
         CalendarModule,
-        DialogModule
+        DialogModule,
+        RatingModule,
+        ProgressSpinnerModule
     ],
     providers: [provideHttpClient(withInterceptorsFromDi())],
     bootstrap: [AppComponent]

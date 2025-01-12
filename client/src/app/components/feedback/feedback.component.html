@@ -3,13 +3,13 @@
     [hidden]="tipo != 'ACERTO'"
     src="assets/raccoon/gif/victory-dance.gif"
     alt="Avatar"
-    style="max-width: 320px; padding-left: 10px"
+    [style]="'max-width: 320px; padding-left: calc(10px * '+ scale +')'"
   />
   <img
     [hidden]="tipo != 'ERRO'"
     src="assets/raccoon/gif/crouch.gif"
     alt="Avatar"
-    style="max-width: 310px; margin-left: 18px; margin-bottom: 15px"
+    [style]="'max-width: 310px; margin-left: calc(18px * '+ scale +'); margin-bottom: calc(15px * '+ scale +')'"
   />
   <img
     [hidden]="tipo != 'VAZIO'"

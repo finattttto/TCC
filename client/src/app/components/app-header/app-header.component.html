@@ -1,11 +1,24 @@
 <header class="app-header">
   <div class="header-content">
-    <h1 class="site-name">Libras</h1>
+    <a href="">
+      <img
+        src="https://www.gov.br/mdh/pt-br/ondh/centrais-de-conteudo/imagens/libras.png"
+        alt="Logo do Jogo Libras"
+        width="80px"
+      />
+    </a>
+    <a href="" style="text-decoration: none; color: inherit;">
+      <h1 class="site-name">Jogo Libras</h1>
+    </a>
     <div class="menu-container flex align-items-center gap-2">
       <p-menu #menu [model]="items" appendTo="body" [popup]="true"></p-menu>
       <p-button
+        pRipple
+        label="Área do Professor"
+        severity="secondary"
         (onClick)="menu.toggle($event)"
-        icon="pi pi-ellipsis-v"
+        icon="pi pi-graduation-cap"
+        iconPos="right"
       ></p-button>
     </div>
   </div>

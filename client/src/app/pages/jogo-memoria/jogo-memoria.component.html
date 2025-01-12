@@ -1,3 +1,9 @@
+<app-pontuacao
+  [jogador]="'João Silva'"
+  [acertos]="0"
+  [erros]="0"
+></app-pontuacao>
+
 <div class="grid p-fluid align-content-center" style="height: calc(100vh - 200px);">
   <div class="feedback"> 
     <app-feedback [tipo]="feedback" (clearFeedback)="clearFeedback()"></app-feedback>
@@ -26,3 +32,16 @@
     </ul>
   </div>
 </div>
+<div class="botao-jogo-memoria" *ngIf="endGame">
+  <button
+    severity="success"
+    size="large"
+    [rounded]="true"
+    pButton
+    label="Novo jogo"
+    icon="pi pi-replay"
+    iconPos="right"
+    (click)="novoJogo()"
+  ></button>
+</div>
+

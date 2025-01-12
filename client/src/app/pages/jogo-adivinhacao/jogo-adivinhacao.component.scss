@@ -1,6 +1,6 @@
 .card-letra {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,14 +14,28 @@
   cursor: pointer;
 }
 
+.card-letra-acertos {
+  width: 85px;
+  height: 85px;
+}
+
 .card-letra:hover {
-  transform: scale(1.1); 
+  transform: scale(1.1);
+}
+
+.opcoes-container {
+  border-radius: 12px;
+  background-color:  rgba(84, 88, 81, 0.7);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
 }
 
 .carta-imagem {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
 
 .list-container {
@@ -37,11 +51,41 @@
 }
 
 .container-image {
+  position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 250px; 
+  overflow: hidden; 
 }
 
 .image {
-  max-height: 200px; 
-  max-width: 200px;
+  width: 200px; 
+  height: 200px;
+  object-fit: cover; 
+  position: absolute;
+  z-index: 1;
+}
+
+.moldura {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.spinner {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  height: 300px;
+}
+
+.feedback {
+  position: absolute;
+  top: 7%;
+  left: 20%;
+  transform: scale(0.7);
+  width: auto;
 }

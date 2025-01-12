@@ -47,3 +47,12 @@
   width: auto;
 }
 
+.botao-jogo-memoria {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: pulse 1.5s infinite; /* Aplica a animação de pulsação */
+}

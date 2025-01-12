@@ -22,6 +22,9 @@ export class FeedbackComponent {
     this.changeMessage(); 
   }
 
+  @Input()
+  scale: number = 1;
+
   get tipo(): ETipoFeedback {
     return this._tipo;
   }

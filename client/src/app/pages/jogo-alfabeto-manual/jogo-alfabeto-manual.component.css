@@ -1,7 +1,33 @@
+@charset "UTF-8";
 .letra-sorteada {
   font-size: 80px;
   font-weight: bold;
   margin-bottom: 20px;
+  width: 150px;
+  height: 150px;
+  line-height: 150px;
+  border-radius: 50%;
+  background-color: rgba(166, 255, 0, 0.9);
+  color: #000;
+  display: inline-block;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+@keyframes pulse-once {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.pulse-once {
+  animation: pulse-once 0.6s ease;
 }
 
 .card-letra {
@@ -9,6 +35,7 @@
   height: 110px;
   display: flex;
   align-items: center;
+  position: relative;
   justify-content: center;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -18,7 +45,7 @@
   cursor: pointer;
 }
 
-.card-letra:hover {
+.card-hover:hover {
   transform: scale(1.1);
 }
 
@@ -27,6 +54,8 @@
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
 
 .list-container {
@@ -44,4 +73,56 @@
   left: 2%;
   transform: translateY(-50%);
   width: auto;
+}
+
+.erro-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 0, 0, 0.5);
+  font-size: 4rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  pointer-events: none;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.acerto-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(102, 255, 0, 0.5);
+  z-index: 10;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.botao-novo-jogo {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  bottom: 220px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: pulse 1.5s infinite; /* Aplica a animação de pulsação */
+}
+
+@keyframes pulse {
+  0% {
+    transform: translateX(-50%) scale(1); /* Tamanho inicial */
+  }
+  50% {
+    transform: translateX(-50%) scale(1.2); /* Aumenta 10% */
+  }
+  100% {
+    transform: translateX(-50%) scale(1); /* Volta ao tamanho original */
+  }
 }/*# sourceMappingURL=jogo-alfabeto-manual.component.css.map */

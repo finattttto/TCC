@@ -12,40 +12,75 @@
     class="avatar-moving"
   />
   <div *ngIf="etapa == 'PADRAO'" class="buttons">
-    <div *ngIf="personagemAtivo">
+    <div>
       <button
-        class="button-game p-button-help"
+        class="button-game pulse-button"
         pButton
-        label="Meu personagem"
-        (click)="editarPersonagem()"
-      ></button>
+        pRipple
+        severity="warning"
+        (click)="play()"
+      >
+        <div class="col-fixed">
+          <strong>Jogar</strong>
+        </div>
+        <div class="col-fixed">
+          <img
+            src="assets/icons/controller.svg"
+            alt="Balcão"
+            style="width: 50px; height: 50px"
+          />
+        </div>
+      </button>
     </div>
-    <div *ngIf="personagemAtivo" class="m-0">
+    <div class="m-0">
       <hr />
     </div>
+    <div *ngIf="personagemAtivo">
+      <button (click)="editarPersonagem()" class="button-game" severity="info" pButton pRipple>
+        <div class="col-fixed">
+          <strong>Meu avatar</strong>
+        </div>
+        <div class="col-fixed">
+          <img
+            src="assets/icons/account-circle.svg"
+            alt="Balcão"
+            style="width: 50px; height: 50px"
+          />
+        </div>
+      </button>
+    </div>
     <div>
-      <button
-        class="button-game p-button-help"
-        pButton
-        label="Jogar"
-        (click)="play()"
-      ></button>
+      <button severity="info" pButton pRipple class="button-game" (click)="novoPersonagem()">
+        <div class="col-fixed">
+          <strong>Novo avatar</strong>
+        </div>
+        <div class="col-fixed">
+          <img
+            src="assets/icons/person-add.svg"
+            alt="Balcão"
+            style="width: 50px; height: 50px"
+          />
+        </div>
+      </button>
     </div>
     <div>
       <button
-        pButton
-        class="button-game p-button-info"
-        label="Novo personagem"
-        (click)="novoPersonagem()"
-      ></button>
-    </div>
-    <div>
-      <button
-        pButton
-        class="button-game p-button-success"
-        label="Selecionar personagem"
+        severity="info" pButton
+        pRipple
+        class="button-game"
         (click)="selecionarPersonagem()"
-      ></button>
+      >
+        <div class="col-fixed">
+          <strong>Selecionar avatar</strong>
+        </div>
+        <div class="col-fixed">
+          <img
+            src="assets/icons/group-search.svg"
+            alt="Balcão"
+            style="width: 50px; height: 50px"
+          />
+        </div>
+      </button>
     </div>
   </div>
   <div

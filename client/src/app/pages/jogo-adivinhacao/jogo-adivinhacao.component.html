@@ -1,13 +1,32 @@
 <p-toast />
+
+<app-pontuacao
+  [jogador]="'João Silva'"
+  [acertos]="0"
+  [erros]="0"
+></app-pontuacao>
+
+<div class="feedback">
+  <app-feedback
+    [tipo]="feedback"
+    (clearFeedback)="clearFeedback()"
+    [scale]="0.7"
+  ></app-feedback>
+</div>
+
 <div class="grid p-fluid pt-5">
-  <div class="col-12 container-image">
-    <img *ngIf="getImage()" [src]="getImage()" alt="Imagem" class="image" />
+  <div *ngIf="!getImage()" class="col-12 spinner">
+    <p-progressSpinner ariaLabel="loading" />
   </div>
-  <div class="col-12">
+  <div *ngIf="getImage()" class="col-12 container-image">
+    <img  [src]="getImage()" alt="Imagem" class="image" />
+    <img  src="assets/moldura.png" class="moldura" />
+  </div>
+  <div class="col-12" *ngIf="obj?.letras">
     <ul class="list-container">
       <li
         *ngFor="let letra of obj.letras; let i = index"
-        class="card-letra"
+        class="card-letra card-letra-acertos" 
         pDroppable
         (onDrop)="drop(i)"
       >
@@ -21,19 +40,35 @@
       </li>
     </ul>
   </div>
+  <div class="col-12"></div>
   <!-- Letras para arrastar -->
-  <div class="col-12 borda-cinza">
-    <ul class="list-container">
-      <li
-        *ngFor="let letra of letras"
-        class="card-letra"
-        pDraggable
-        (onDragStart)="dragStart(letra)"
-        (onDragEnd)="dragEnd()"
-      >
-        <img [src]="letra.path" [alt]="letra.letra" class="carta-imagem" />
-        <!-- {{ letra.letra }} -->
+   <div class="col"></div>
+   <div class="col-10 opcoes-container">
+     <ul class="list-container p-0">
+       <li
+       *ngFor="let letra of letras"
+       class="card-letra"
+       pDraggable
+       (onDragStart)="dragStart(letra)"
+       (onDragEnd)="dragEnd()"
+       >
+       <img [src]="letra.path" [alt]="letra.letra" class="carta-imagem" />
+       <!-- {{ letra.letra }} -->
       </li>
     </ul>
   </div>
+  <div class="col"></div>
+</div>
+
+<div class="botao-novo-jogo" *ngIf="endGame">
+  <button
+    severity="warning"
+    size="large"
+    [rounded]="true"
+    pButton
+    label="Jogar"
+    icon="pi pi-replay"
+    iconPos="right"
+    (click)="geraNovaPalavra()"
+  ></button>
 </div>

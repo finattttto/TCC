@@ -54,7 +54,7 @@ export class PaginaInicialComponent implements OnInit {
   }
 
   play() {
-    this.router.navigateByUrl("/adivinhacao")
+    this.router.navigateByUrl("/alfabeto-manual")
   }
 
   novoPersonagem() {
