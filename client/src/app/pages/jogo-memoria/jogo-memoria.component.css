@@ -8,7 +8,8 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f5f5f5;
-  font-size: 24px;
+  font-size: 30px;
+  font-weight: bold;
   margin: 8px;
   text-align: center;
   cursor: pointer;
@@ -25,6 +26,7 @@
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  border-radius: 8px;
 }
 
 .carta-oculta {
@@ -36,7 +38,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 600px;
   gap: 8px;
   margin: 0 auto;
 }
@@ -47,4 +48,14 @@
   left: 2%;
   transform: translateY(-50%);
   width: auto;
+}
+
+.botao-jogo-memoria {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: pulse 1.5s infinite; /* Aplica a animação de pulsação */
 }/*# sourceMappingURL=jogo-memoria.component.css.map */

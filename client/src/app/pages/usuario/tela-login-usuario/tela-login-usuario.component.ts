@@ -28,6 +28,7 @@ export class TelaLoginUsuarioComponent {
           UtilService.setAuth(value.token);
           this.msg.add({
             severity: 'success',
+            summary: 'Sucesso',
             detail: 'Login realizado com sucesso!',
           });
           this.router.navigateByUrl("/inicio-admin")
@@ -36,6 +37,7 @@ export class TelaLoginUsuarioComponent {
       error: (err) => {
         this.msg.add({
           severity: 'info',
+          summary: 'Aviso',
           detail: 'Não foi possivel realizar seu login!',
         });
       },

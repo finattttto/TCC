@@ -4,12 +4,13 @@
   [erros]="0"
 ></app-pontuacao>
 
+
 <div class="grid p-fluid align-content-center" style="height: calc(100vh - 200px);">
   <div class="feedback"> 
     <app-feedback [tipo]="feedback" (clearFeedback)="clearFeedback()"></app-feedback>
   </div>
   <div class="col-12">
-    <ul class="list-container">
+    <ul class="list-container" [style]="'max-width:' + width">
       <li
         *ngFor="let carta of cartas"
         class="card-letra"
@@ -45,3 +46,4 @@
   ></button>
 </div>
 
+<app-personagem></app-personagem>

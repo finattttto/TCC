@@ -1,22 +1,65 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Turma } from 'src/app/model/Turma';
 import { TurmaService } from 'src/app/service/turma.service';
+import { ETelaAdminAtiva } from '../../usuario/pagina-inicial-usuario/pagina-inicial-usuario.component';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-tela-lista-turma',
   templateUrl: './tela-lista-turma.component.html',
-  styleUrl: './tela-lista-turma.component.scss'
+  styleUrl: './tela-lista-turma.component.scss',
 })
 export class TelaListaTurmaComponent implements OnInit {
+  @Output()
+  abrirEdicao: EventEmitter<any> = new EventEmitter<any>();
 
   turmas: Turma[] = [];
 
   constructor(
-    public service: TurmaService
-  ){}
+    public service: TurmaService,
+    public confirm: ConfirmationService,
+    public mensagem: MessageService
+  ) {}
 
   async ngOnInit() {
     this.turmas = await firstValueFrom(this.service.getAllRequest());
+  }
+
+  editar(turma: Turma) {
+    this.abrirEdicao.emit({
+      tipo: ETelaAdminAtiva.SALA_CADASTRO,
+      obj: turma,
+    });
+  }
+
+  excluir(turma: Turma) {
+    this.confirm.confirm({
+      message: 'Tem certeza que deseja excluir esse registro?',
+      header: 'Confirme',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Não',
+      acceptLabel: 'Sim',
+      rejectButtonStyleClass: 'confirm-button-danger',
+      accept: () => {
+        this.service.delete(turma).subscribe({
+          next: (value) => {
+            this.turmas = this.turmas.filter((p) => p.id != turma.id);
+            this.mensagem.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: 'Registro apagado com sucesso!',
+            });
+          },
+          error: (err) => {
+            this.mensagem.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: 'Ocorreu um erro ao apagar o registro!',
+            });
+          },
+        });
+      },
+    });
   }
 }

@@ -17,7 +17,18 @@ export class UtilService {
   private static personagem;
 
   public static isLoggedIn(): boolean {
-    return !!this.auth;
+    if(!!this.auth) return true;
+    else if(!!UtilService.getAuth()) return true;
+    return false;
+  }
+
+  public static loggout() {
+    this.auth = undefined;
+    this.usuario = undefined;
+    this.personagem = undefined;
+    localStorage.removeItem(ELocalStorageKeys.AUTH_LIBRAS);
+    localStorage.removeItem(ELocalStorageKeys.PERSONAGEM);
+    localStorage.removeItem(ELocalStorageKeys.USUARIO_LOGADO);
   }
 
   public static setAuth(value: string) {
@@ -47,9 +58,10 @@ export class UtilService {
     localStorage.setItem(ELocalStorageKeys.PERSONAGEM, JSON.stringify(value));
   }
 
-  public static getPersonagem() {
+  public static getPersonagem(): Personagem {
     if(this.personagem) return this.personagem;
     this.personagem = JSON.parse(localStorage.getItem(ELocalStorageKeys.PERSONAGEM));
+    if(!this.personagem) this.personagem = new Personagem();
     return this.personagem;
   }
 }

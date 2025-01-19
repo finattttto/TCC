@@ -23,19 +23,44 @@
           inputId="buttondisplay"
         />
       </div>
-      <div class="col-6">
-        <label for="nivel">Nível</label>
-        <p-inputNumber
-          [(ngModel)]="personagem.nivel"
-          mode="decimal"
-          inputId="withoutgrouping"
-          [useGrouping]="false"
-        />
+      <div class="col-12 p-field pt-3">
+        <label for="palavra">Dificuldade</label>
+        <div class="flex flex-wrap gap-3 pt-3">
+          <div class="flex align-items-center">
+            <p-radioButton
+              name="dificuldade"
+              value="FACIL"
+              [(ngModel)]="personagem.dificuldade"
+              inputId="dificuldade1"
+            />
+            <label for="dificuldade1" class="ml-2"> Fácil </label>
+          </div>
+    
+          <div class="flex align-items-center">
+            <p-radioButton
+              name="dificuldade"
+              value="MEDIO"
+              [(ngModel)]="personagem.dificuldade"
+              inputId="dificuldade2"
+            />
+            <label for="dificuldade2" class="ml-2"> Médio </label>
+          </div>
+    
+          <div class="flex align-items-center">
+            <p-radioButton
+              name="dificuldade"
+              value="DIFICIL"
+              [(ngModel)]="personagem.dificuldade"
+              inputId="dificuldade3"
+            />
+            <label for="dificuldade3" class="ml-2"> Difícil </label>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-4 content-avatar">
       <div class="avatar">
-        <img src="https://www.shareicon.net/data/512x512/2016/06/25/786551_people_512x512.png" alt="Avatar" />
+        <img [src]="personagem.avatar" alt="Avatar" (click)="mudarAvatar()" />
       </div>
     </div>
   </div>

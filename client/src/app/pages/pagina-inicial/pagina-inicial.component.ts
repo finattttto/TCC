@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { DialogModule } from 'primeng/dialog';
+import { DialogService } from 'primeng/dynamicdialog';
 import { firstValueFrom } from 'rxjs';
+import { MenuAvatarComponent } from 'src/app/components/menu-avatar/menu-avatar.component';
 import { Personagem } from 'src/app/model/Personagem';
 import { PersonagemService } from 'src/app/service/personagem.service';
 import { UtilService } from 'src/app/service/util.service';
@@ -32,6 +35,10 @@ export class PaginaInicialComponent implements OnInit {
     this._etapa = value;
     this.onEtapaChange(value);
   }
+   
+  get avatar() {
+    return this.personagem?.avatar || 'assets/avatar/avatar_1.jpg';
+  }
 
   get personagemAtivo() {
     return UtilService.getPersonagem();
@@ -39,7 +46,8 @@ export class PaginaInicialComponent implements OnInit {
 
   constructor(
     public personagemService: PersonagemService,
-    public router: Router
+    public router: Router,
+    public dialog: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -58,12 +66,13 @@ export class PaginaInicialComponent implements OnInit {
   }
 
   novoPersonagem() {
+    this.personagem = new Personagem();
     this.etapa = ETelaInicial.NOVO_PERSONAGEM;
   }
 
   editarPersonagem() {
-    this.etapa = ETelaInicial.NOVO_PERSONAGEM;
     this.personagem = this.personagemAtivo;
+    this.etapa = ETelaInicial.NOVO_PERSONAGEM;
   }
 
   async savePersonagem(){
@@ -83,6 +92,18 @@ export class PaginaInicialComponent implements OnInit {
   selectPersonagem(p: Personagem) {
     UtilService.setPersonagem(p);
     this.etapa = ETelaInicial.PADRAO;
+  }
+
+  mudarAvatar() {
+    this.dialog.open(MenuAvatarComponent, {
+      header: 'Selecione um Avatar'
+    }).onClose.subscribe({
+      next: (value) => {
+        if(value) {
+          this.personagem.avatar = value;
+        }
+      },
+    })
   }
 }
 

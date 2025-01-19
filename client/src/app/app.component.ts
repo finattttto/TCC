@@ -1,13 +1,14 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: '../styles.scss',
-  providers: [MessageService],
+  providers: [MessageService, DialogService, ConfirmationService],
 })
 export class AppComponent implements OnInit {
   private routeSubscription: Subscription;
@@ -23,10 +24,10 @@ export class AppComponent implements OnInit {
       },
     },
     {
-      label: 'Jogo Adivinhação',
-      icon: 'https://cdn-icons-png.flaticon.com/512/5893/5893002.png',
+      label: 'Jogo Letras',
+      icon: 'https://cdn-icons-png.flaticon.com/512/7300/7300779.png',
       command: () => {
-        this.router.navigateByUrl('/adivinhacao');
+        this.router.navigateByUrl('/alfabeto-manual');
       },
     },
     {
@@ -36,23 +37,23 @@ export class AppComponent implements OnInit {
         this.router.navigateByUrl('/jogo-memoria');
       },
     },
-    // {
-    //   label: 'Jogo Forca',
-    //   icon: 'https://cdn-icons-png.flaticon.com/512/2241/2241387.png',
-    //   command: () => {
-    //     this.router.navigateByUrl('');
-    //   },
-    // },
     {
-      label: 'Jogo Letras',
-      icon: 'https://cdn-icons-png.flaticon.com/512/3354/3354973.png',
+      label: 'Jogo Palavras',
+      icon: 'https://cdn-icons-png.flaticon.com/512/8541/8541715.png',
       command: () => {
-        this.router.navigateByUrl('/alfabeto-manual');
+        this.router.navigateByUrl('jogo-palavra');
+      },
+    },
+    {
+      label: 'Jogo Adivinhação',
+      icon: 'https://cdn-icons-png.flaticon.com/512/5893/5893002.png',
+      command: () => {
+        this.router.navigateByUrl('/adivinhacao');
       },
     },
   ];
 
-  allowedRoutes = ['/adivinhacao', '/alfabeto-manual', '/jogo-memoria', '/'];
+  allowedRoutes = ['/adivinhacao', '/alfabeto-manual', '/jogo-memoria', '/jogo-palavra', '/'];
 
   constructor(
     public router: Router,

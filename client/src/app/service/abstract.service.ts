@@ -42,7 +42,7 @@ export abstract class AbstractService<T extends AbstractModel> {
   }
 
   getByIdRequest(
-    id: string = '',
+    id: any = '',
     relations: string[] = undefined
   ): Observable<T> {
     return new HttpRequest<T>(this.http)
@@ -70,6 +70,13 @@ export abstract class AbstractService<T extends AbstractModel> {
         },
       });
     });
+  }
+
+  delete(obj: T) {
+    return new HttpRequest<any>(this.http)
+      .endpoint(this.endpoint)
+      .uri(new UriBuilder().subpath(obj?.id.toString()).build())
+      .doDelete();
   }
 
 }

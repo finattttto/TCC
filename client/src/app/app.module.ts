@@ -48,6 +48,10 @@ import { DialogModule } from 'primeng/dialog';
 import { PontuacaoComponent } from './components/pontuacao/pontuacao.component';
 import { RatingModule } from 'primeng/rating';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { AppPersonagemComponent } from './components/app-personagem/app-personagem.component';
+import { JogoPalavrasComponent } from './pages/jogo-palavras/jogo-palavras.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 @NgModule({
@@ -62,6 +66,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
         JogoAdivinhacaoComponent,
         JogoAlfabetoManualComponent,
         JogoMemoriaComponent,
+        JogoPalavrasComponent,
         FeedbackComponent,
         PontuacaoComponent,
         TelaCadastroUsuarioComponent,
@@ -102,7 +107,10 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
         CalendarModule,
         DialogModule,
         RatingModule,
-        ProgressSpinnerModule
+        DropdownModule,
+        ConfirmDialogModule,
+        ProgressSpinnerModule,
+        AppPersonagemComponent
     ],
     providers: [provideHttpClient(withInterceptorsFromDi())],
     bootstrap: [AppComponent]

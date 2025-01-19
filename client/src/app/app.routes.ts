@@ -5,8 +5,8 @@ import { JogoAlfabetoManualComponent } from "./pages/jogo-alfabeto-manual/jogo-a
 import { JogoMemoriaComponent } from "./pages/jogo-memoria/jogo-memoria.component";
 import { TelaLoginUsuarioComponent } from "./pages/usuario/tela-login-usuario/tela-login-usuario.component";
 import { TelaCadastroUsuarioComponent } from "./pages/usuario/tela-cadastro-usuario/tela-cadastro-usuario.component";
-import { TelaCadastroPalavraComponent } from "./pages/palavra/tela-cadastro-palavra/tela-cadastro-palavra.component";
 import { PaginaInicialUsuarioComponent } from "./pages/usuario/pagina-inicial-usuario/pagina-inicial-usuario.component";
+import { JogoPalavrasComponent } from "./pages/jogo-palavras/jogo-palavras.component";
 import { authGuard } from "./auth.guard";
 
 export const routes: Routes = [
@@ -14,6 +14,7 @@ export const routes: Routes = [
     { path: 'adivinhacao', component: JogoAdivinhacaoComponent },
     { path: 'alfabeto-manual', component: JogoAlfabetoManualComponent },
     { path: 'jogo-memoria', component: JogoMemoriaComponent },
+    { path: 'jogo-palavra', component: JogoPalavrasComponent },
     { path: 'login', component: TelaLoginUsuarioComponent },
     { path: 'cadastro-user', component: TelaCadastroUsuarioComponent },
 

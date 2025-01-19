@@ -36,7 +36,13 @@
       <hr />
     </div>
     <div *ngIf="personagemAtivo">
-      <button (click)="editarPersonagem()" class="button-game" severity="info" pButton pRipple>
+      <button
+        (click)="editarPersonagem()"
+        class="button-game"
+        severity="info"
+        pButton
+        pRipple
+      >
         <div class="col-fixed">
           <strong>Meu avatar</strong>
         </div>
@@ -50,7 +56,13 @@
       </button>
     </div>
     <div>
-      <button severity="info" pButton pRipple class="button-game" (click)="novoPersonagem()">
+      <button
+        severity="info"
+        pButton
+        pRipple
+        class="button-game"
+        (click)="novoPersonagem()"
+      >
         <div class="col-fixed">
           <strong>Novo avatar</strong>
         </div>
@@ -65,7 +77,8 @@
     </div>
     <div>
       <button
-        severity="info" pButton
+        severity="info"
+        pButton
         pRipple
         class="button-game"
         (click)="selecionarPersonagem()"
@@ -90,10 +103,7 @@
   >
     <div class="col-12 content-avatar">
       <div class="avatar-personagem">
-        <img
-          src="https://www.shareicon.net/data/512x512/2016/06/25/786551_people_512x512.png"
-          alt="Avatar"
-        />
+        <img [src]="avatar" alt="Avatar" (click)="mudarAvatar()" />
       </div>
     </div>
     <div class="col-12">
@@ -104,6 +114,37 @@
         pInputText
         [(ngModel)]="personagem.nome"
       />
+    </div>
+    <div class="col-11 flex flex-wrap gap-3 dificuldade-card">
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="dificuldade"
+          value="FACIL"
+          [(ngModel)]="personagem.dificuldade"
+          inputId="dificuldade1"
+        />
+        <label for="dificuldade1" class="ml-2"> Fácil </label>
+      </div>
+
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="dificuldade"
+          value="MEDIO"
+          [(ngModel)]="personagem.dificuldade"
+          inputId="dificuldade2"
+        />
+        <label for="dificuldade2" class="ml-2"> Médio </label>
+      </div>
+
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="dificuldade"
+          value="DIFICIL"
+          [(ngModel)]="personagem.dificuldade"
+          inputId="dificuldade3"
+        />
+        <label for="dificuldade3" class="ml-2"> Difícil </label>
+      </div>
     </div>
     <div class="grid p-fluid col-12">
       <div class="col-fixed">

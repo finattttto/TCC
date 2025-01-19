@@ -23,8 +23,8 @@
       {{ letraSorteada?.letra }}
     </div>
   </div>
-
-  <div class="col-12">
+  <div class="col"></div>
+  <div class="col-8">
     <ul class="list-container">
       <li
         *ngFor="let opcao of opcoes"
@@ -38,6 +38,7 @@
       </li>
     </ul>
   </div>
+  <div class="col"></div>
 </div>
 <div class="botao-novo-jogo" *ngIf="acerto">
   <button
@@ -51,3 +52,5 @@
     (click)="novoJogo()"
   ></button>
 </div>
+
+<app-personagem></app-personagem>

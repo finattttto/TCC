@@ -5,7 +5,7 @@ import { Usuario } from "./Usuario";
 export class Personagem extends AbstractModel {
     nome: string;
     dataNascimento: Date;
-    nivel: number;
-    avatar: string;
+    dificuldade: 'FACIL' | 'MEDIO' | 'DIFICIL' = 'FACIL';
+    avatar: string = 'assets/avatar/avatar_1.jpg';
     usuario: Usuario;
 }

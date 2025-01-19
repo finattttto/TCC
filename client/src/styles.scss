@@ -78,13 +78,19 @@ body.custom-background {
   }
 }
 
+.confirm-button-danger {
+  background-color: #dc3545 !important; 
+  border-color: #dc3545 !important;
+  color: #fff !important;
+}
+
 // ANIMACOES
 
 .botao-novo-jogo {
   position: absolute;
   justify-content: center;
   align-items: center;
-  bottom: 220px;
+  bottom: 200px;
   left: 50%;
   transform: translateX(-50%);
   animation: pulse 1.5s infinite; /* Aplica a animação de pulsação */

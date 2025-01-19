@@ -11,8 +11,8 @@ export class Personagem extends GenericEntity {
     @Column({nullable: true})
     dataNascimento: Date;
 
-    @Column({default: 1, nullable: true})
-    nivel: number;
+    @Column({nullable: true, default: 'FACIL'})
+    dificuldade: string;
 
     @Column({nullable: true, type: 'text'})
 	avatar: string;

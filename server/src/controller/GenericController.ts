@@ -161,7 +161,6 @@ export abstract class GenericController<T extends GenericEntity> {
     ): Promise<any> {
         try {
             const { id } = request.params;
-            const { definitivo } = request.query;
             if (!id) {
                 return response
                     .status(400)

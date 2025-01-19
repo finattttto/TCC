@@ -1,8 +1,13 @@
-import { ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { MessageService } from 'primeng/api';
 import letrasData from '../../data/alfabeto-manual.json';
 import { ETipoFeedback } from 'src/app/model/enum/EFeedback';
 import { Letra } from 'src/app/model/interface/ILetra';
+import { UtilService } from 'src/app/service/util.service';
 
 class LetraJogoAlfabetoManual {
   letra: Letra;
@@ -16,7 +21,7 @@ class LetraJogoAlfabetoManual {
 })
 export class JogoAlfabetoManualComponent implements OnInit {
   letras: Letra[] = [];
-  letraSorteada: Letra | null = null; 
+  letraSorteada: Letra | null = null;
   opcoes: LetraJogoAlfabetoManual[] = [];
 
   feedback: ETipoFeedback = ETipoFeedback.VAZIO;
@@ -24,6 +29,14 @@ export class JogoAlfabetoManualComponent implements OnInit {
   animacao: boolean = false;
 
   constructor(public msg: MessageService, private cdr: ChangeDetectorRef) {}
+
+  get isFacil() {
+    return UtilService.getPersonagem().dificuldade == 'FACIL';
+  }
+
+  get isMedio() {
+    return UtilService.getPersonagem().dificuldade == 'MEDIO';
+  }
 
   ngOnInit(): void {
     this.letras = letrasData;
@@ -44,8 +57,11 @@ export class JogoAlfabetoManualComponent implements OnInit {
 
   gerarOpcoes(): LetraJogoAlfabetoManual[] {
     const opcoes = [this.letraSorteada!];
-    const restantes = this.letras.filter((letra) => letra !== this.letraSorteada);
-    while (opcoes.length < 5) {
+    const restantes = this.letras.filter(
+      (letra) => letra !== this.letraSorteada
+    );
+    const quantidade = this.isFacil ? 3 : this.isMedio ? 5 : 7;
+    while (opcoes.length < quantidade) {
       const index = Math.floor(Math.random() * restantes.length);
       opcoes.push(restantes.splice(index, 1)[0]);
     }
@@ -62,7 +78,7 @@ export class JogoAlfabetoManualComponent implements OnInit {
   }
 
   verificarResposta(opcao: LetraJogoAlfabetoManual): void {
-    if(this.acerto || !opcao.pendente) return;
+    if (this.acerto || !opcao.pendente) return;
     if (opcao.letra == this.letraSorteada) {
       this.acerto = true;
       this.feedback = ETipoFeedback.ACERTO;
@@ -89,6 +105,6 @@ export class JogoAlfabetoManualComponent implements OnInit {
   }
 
   fimAnimacao(): void {
-    this.animacao = false; 
+    this.animacao = false;
   }
 }

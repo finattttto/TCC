@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { Palavra } from 'src/app/model/Palavra';
 
 @Component({
   selector: 'app-pagina-inicial-usuario',
@@ -7,8 +8,8 @@ import { MenuItem } from 'primeng/api';
   styleUrl: './pagina-inicial-usuario.component.scss',
 })
 export class PaginaInicialUsuarioComponent implements OnInit {
-
   model: MenuItem[];
+  objEdicao: any;
   telaAtiva: ETelaAdminAtiva = ETelaAdminAtiva.PERFIL;
 
   constructor() {
@@ -20,6 +21,7 @@ export class PaginaInicialUsuarioComponent implements OnInit {
             label: 'Perfil',
             icon: 'pi pi-fw pi-user-edit',
             command: () => {
+              this.objEdicao = undefined;
               this.telaAtiva = ETelaAdminAtiva.PERFIL;
             },
           },
@@ -32,6 +34,7 @@ export class PaginaInicialUsuarioComponent implements OnInit {
             label: 'Novo personagem',
             icon: 'pi pi-fw pi-user-plus',
             command: () => {
+              this.objEdicao = undefined;
               this.telaAtiva = ETelaAdminAtiva.PERSONAGEM_CADASTRO;
             },
           },
@@ -39,6 +42,7 @@ export class PaginaInicialUsuarioComponent implements OnInit {
             label: 'Listar personagens',
             icon: 'pi pi-fw pi-users',
             command: () => {
+              this.objEdicao = undefined;
               this.telaAtiva = ETelaAdminAtiva.PERSONAGEM_LISTA;
             },
           },
@@ -51,6 +55,7 @@ export class PaginaInicialUsuarioComponent implements OnInit {
             label: 'Nova palavra',
             icon: 'pi pi-fw pi-pencil',
             command: () => {
+              this.objEdicao = undefined;
               this.telaAtiva = ETelaAdminAtiva.PALAVRA_CADASTRO;
             },
           },
@@ -58,6 +63,7 @@ export class PaginaInicialUsuarioComponent implements OnInit {
             label: 'Listar palavras',
             icon: 'pi pi-fw pi-book',
             command: () => {
+              this.objEdicao = undefined;
               this.telaAtiva = ETelaAdminAtiva.PALAVRA_LISTA;
             },
           },
@@ -70,6 +76,7 @@ export class PaginaInicialUsuarioComponent implements OnInit {
             label: 'Nova sala',
             icon: 'pi pi-fw pi-graduation-cap',
             command: () => {
+              this.objEdicao = undefined;
               this.telaAtiva = ETelaAdminAtiva.SALA_CADASTRO;
             },
           },
@@ -77,6 +84,7 @@ export class PaginaInicialUsuarioComponent implements OnInit {
             label: 'Listar salas',
             icon: 'pi pi-fw pi-align-justify',
             command: () => {
+              this.objEdicao = undefined;
               this.telaAtiva = ETelaAdminAtiva.SALA_LISTA;
             },
           },
@@ -86,6 +94,13 @@ export class PaginaInicialUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  editar(event) {
+    if (event?.tipo) {
+      this.objEdicao = event.obj;
+      this.telaAtiva = event.tipo;
+    }
+  }
 }
 
 export enum ETelaAdminAtiva {

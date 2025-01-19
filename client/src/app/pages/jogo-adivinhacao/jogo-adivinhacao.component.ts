@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import letrasData from '../../data/alfabeto-manual.json';
+import palavraPadraoData from '../../data/animais-padrao.json';
 import { MessageService } from 'primeng/api';
 import { Letra } from 'src/app/model/interface/ILetra';
 import { PalavraService } from 'src/app/service/palavra.service';
 import { Palavra } from 'src/app/model/Palavra';
-import { firstValueFrom } from 'rxjs';
 import { ETipoFeedback } from 'src/app/model/enum/EFeedback';
+import { UtilService } from 'src/app/service/util.service';
 
 @Component({
   selector: 'app-jogo-adivinhacao',
@@ -31,16 +32,26 @@ export class JogoAdivinhacaoComponent implements OnInit {
     public palavraService: PalavraService
   ) {
     this.letras = letrasData;
+    this.palavras = palavraPadraoData as Palavra[];
   }
+
+  get dicaLetra() {
+    return UtilService.getPersonagem().dificuldade == 'FACIL';
+  }
+
+  get dicaPalavra() {
+    return ['FACIL', 'MEDIO'].includes(UtilService.getPersonagem().dificuldade);
+  }
+
 
   ngOnInit() {
     this.carregaObjetos();
   }
 
   async carregaObjetos() {
-    this.palavras = await firstValueFrom(
-      this.palavraService.getAllRequest(undefined, 0, 100)
-    );
+    // this.palavras = await firstValueFrom(
+    //   this.palavraService.getAllRequest(undefined, 0, 100)
+    // );
     await this.geraNovaPalavra();
   }
 
@@ -59,11 +70,11 @@ export class JogoAdivinhacaoComponent implements OnInit {
   }
 
   async palavraCompleta() {
-    this.msg.add({
-      severity: 'success',
-      summary: 'Aviso',
-      detail: 'Parabéns!',
-    });
+    // this.msg.add({
+    //   severity: 'success',
+    //   summary: 'Aviso',
+    //   detail: 'Parabéns!',
+    // });
     this.endGame = true;
     // setTimeout(async () => {
     //   await this.geraNovaPalavra();

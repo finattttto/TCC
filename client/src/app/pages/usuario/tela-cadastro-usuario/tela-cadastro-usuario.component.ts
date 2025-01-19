@@ -33,6 +33,7 @@ export class TelaCadastroUsuarioComponent {
           }
           this.msg.add({
             severity: 'success',
+            summary: 'Sucesso',
             detail: 'Cadastro realizado com sucesso!',
           });
         },
@@ -40,6 +41,7 @@ export class TelaCadastroUsuarioComponent {
           console.log(err);
           this.msg.add({
             severity: 'error',
+            summary: 'Erro',
             detail: 'Ocorreu um erro ao cadastrar!',
           });
         },

@@ -3,11 +3,12 @@ import { MessageService } from 'primeng/api';
 import letrasData from '../../data/alfabeto-manual.json';
 import { ETipoFeedback } from 'src/app/model/enum/EFeedback';
 import { Letra } from 'src/app/model/interface/ILetra';
+import { UtilService } from 'src/app/service/util.service';
 
 @Component({
   selector: 'app-jogo-memoria',
   templateUrl: './jogo-memoria.component.html',
-  styleUrl: './jogo-memoria.component.scss'
+  styleUrl: './jogo-memoria.component.scss',
 })
 export class JogoMemoriaComponent implements OnInit {
   letras: Letra[] = [];
@@ -23,6 +24,18 @@ export class JogoMemoriaComponent implements OnInit {
 
   constructor(public msg: MessageService) {}
 
+  get isFacil() {
+    return UtilService.getPersonagem().dificuldade == 'FACIL';
+  }
+
+  get isMedio() {
+    return UtilService.getPersonagem().dificuldade == 'MEDIO';
+  }
+
+  get width() {
+    return this.isFacil ? '600px' : this.isMedio ? '600px' : '700px'
+  }
+
   ngOnInit(): void {
     this.novoJogo();
   }
@@ -33,8 +46,8 @@ export class JogoMemoriaComponent implements OnInit {
     this.cartas = this.criarCartas();
 
     setTimeout(() => {
-      this.cartas.forEach((c) => c.revelado = false)
-    }, 5000)
+      this.cartas.forEach((c) => (c.revelado = false));
+    }, 5000);
   }
 
   sorteador(): Letra[] {
@@ -43,20 +56,21 @@ export class JogoMemoriaComponent implements OnInit {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    return shuffled.slice(0, 8);
+    const quantidade = this.isFacil ? 6 : this.isMedio ? 8 : 10;
+    return shuffled.slice(0, quantidade);
   }
 
   criarCartas(): Carta[] {
-    const cartasLetra= [...this.letras].map(letra => ({
+    const cartasLetra = [...this.letras].map((letra) => ({
       ...letra,
       revelado: true,
-      figura: false
+      figura: false,
     }));
-    const cartasImagem = [...this.letras].map(letra => ({
+    const cartasImagem = [...this.letras].map((letra) => ({
       ...letra,
       revelado: true,
-      figura: true
-    }))
+      figura: true,
+    }));
     return this.embaralhar([...cartasLetra, ...cartasImagem]);
   }
 
@@ -69,7 +83,12 @@ export class JogoMemoriaComponent implements OnInit {
   }
 
   revelarCarta(carta: Carta): void {
-    if (this.bloqueado || carta.revelado || (this.primeiraCarta && this.segundaCarta)) return;
+    if (
+      this.bloqueado ||
+      carta.revelado ||
+      (this.primeiraCarta && this.segundaCarta)
+    )
+      return;
 
     carta.revelado = true;
 
@@ -87,7 +106,7 @@ export class JogoMemoriaComponent implements OnInit {
       if (this.primeiraCarta.letra == this.segundaCarta.letra) {
         this.feedback = ETipoFeedback.ACERTO;
         this.resetarCartas();
-        if(this.cartas.every((c) => c.revelado)) {
+        if (this.cartas.every((c) => c.revelado)) {
           this.endGame = true;
         }
       } else {

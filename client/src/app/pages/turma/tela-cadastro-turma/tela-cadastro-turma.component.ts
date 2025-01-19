@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { firstValueFrom } from 'rxjs';
@@ -13,6 +13,7 @@ import { TurmaService } from 'src/app/service/turma.service';
   styleUrl: './tela-cadastro-turma.component.scss',
 })
 export class TelaCadastroTurmaComponent implements OnInit {
+  @Input()
   turma: Turma = new Turma();
   palavrasTurma: Palavra[] = [];
 
@@ -29,7 +30,11 @@ export class TelaCadastroTurmaComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.palavras = await firstValueFrom(this.palavraService.getAllRequest());
+    this.palavras = await firstValueFrom(this.palavraService.getAllRequest(undefined, 0, 9999));
+    if(!this.turma) this.turma = new Turma();
+    else if(this.turma?.id) {
+      this.palavrasTurma = this.palavras.filter((p) => this.turma.palavras.includes(p.id.toString() as any));
+    }
   }
 
   save() {

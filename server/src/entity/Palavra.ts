@@ -8,14 +8,17 @@ export class Palavra extends GenericEntity {
     @Column({default: '', nullable: true})
     descricao: string;
 
+    @Column({default: 'JOGO_ADIVINHACAO', nullable: true})
+    tipo: string;
+
     @Column({default: '', nullable: true, type: 'text'})
     imagem: string;
 
     @Column({default: false})
     pacotePadrao: string;
 
-    @Column({default: 1, nullable: true})
-    nivel: number;
+    @Column({nullable: true, default: 'FACIL'})
+    dificuldade: string;
     
     @ManyToOne(
         () => Usuario,
@@ -23,4 +26,8 @@ export class Palavra extends GenericEntity {
         { nullable: true, createForeignKeyConstraints: false }
     )
     usuario: Usuario;
+
+    @Column({ type: 'simple-array', nullable: true })
+    opcoes: string[];
+
 }
