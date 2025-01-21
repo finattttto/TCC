@@ -52,6 +52,7 @@ import { AppPersonagemComponent } from './components/app-personagem/app-personag
 import { JogoPalavrasComponent } from './pages/jogo-palavras/jogo-palavras.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TutorialComponent } from './components/tutorial/tutorial.component';
 
 
 @NgModule({
@@ -110,7 +111,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         DropdownModule,
         ConfirmDialogModule,
         ProgressSpinnerModule,
-        AppPersonagemComponent
+        AppPersonagemComponent,
+        TutorialComponent
     ],
     providers: [provideHttpClient(withInterceptorsFromDi())],
     bootstrap: [AppComponent]

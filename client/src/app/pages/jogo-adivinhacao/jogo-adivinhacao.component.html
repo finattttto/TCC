@@ -6,6 +6,10 @@
   [erros]="0"
 ></app-pontuacao>
 
+<app-personagem></app-personagem>
+
+<app-tutorial [atividade]="'JOGO_ADIVINHACAO'"></app-tutorial>
+
 <div class="feedback">
   <app-feedback
     [tipo]="feedback"
@@ -23,10 +27,9 @@
     <img src="assets/moldura.png" class="moldura" />
   </div>
   <div *ngIf="dicaPalavra" class="col-12 dica-palavra">
-    <h4>{{selectedPalavra.descricao}}</h4>
+    <h4>{{ selectedPalavra.descricao }}</h4>
   </div>
-  <div *ngIf="!dicaPalavra" class="col-12 p-3">
-  </div>
+  <div *ngIf="!dicaPalavra" class="col-12 p-3"></div>
   <div class="col-12" *ngIf="obj?.letras">
     <ul class="list-container">
       <li
@@ -58,7 +61,7 @@
         (onDragEnd)="dragEnd()"
       >
         <img [src]="letra.path" [alt]="letra.letra" class="carta-imagem" />
-        <p *ngIf="dicaLetra" class="dica-letra">{{letra.letra}}</p>
+        <p *ngIf="dicaLetra" class="dica-letra">{{ letra.letra }}</p>
         <!-- {{ letra.letra }} -->
       </li>
     </ul>
@@ -78,5 +81,3 @@
     (click)="geraNovaPalavra()"
   ></button>
 </div>
-
-<app-personagem></app-personagem>

@@ -97,7 +97,10 @@ export class JogoAdivinhacaoComponent implements OnInit {
       this.feedback = ETipoFeedback.ACERTO;
       this.selectedLetras[index] = this.draggedLetra;
       this.obj.acertos[index] = this.draggedLetra.letra;
-      if (this.obj.letras.length == this.obj.acertos.length) {
+      if (
+        this.obj.letras.length === this.obj.acertos.length &&
+        this.obj.letras.every((letra, index) => letra === this.obj.acertos[index])
+      ) {
         this.palavraCompleta();
       }
     } else {
