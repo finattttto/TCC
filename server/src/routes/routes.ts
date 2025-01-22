@@ -44,6 +44,12 @@ routes.route('/pontuacao/:id')
 	.put(PontuacaoController.update)
 	.delete(PontuacaoController.remove);
 
+routes.route('/turma-busca/:codigo')
+	.get(TurmaController.buscaTurmaPeloCodigo)
+
+routes.route('/turma-codigo/:id')
+	.get(TurmaController.geraNovoCodigo)
+
 routes.route('/turma')
 	.get(TurmaController.index)
 	.post(TurmaController.save);

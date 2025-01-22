@@ -10,7 +10,7 @@
 
 <div
   class="grid p-fluid align-content-center"
-  style="height: calc(100vh - 200px)"
+  style="height: calc(calc(100svh / var(--zoom)) - 200px)"
 >
   <div class="feedback">
     <app-feedback
@@ -46,7 +46,7 @@
 </div>
 <div class="botao-novo-jogo" *ngIf="acerto">
   <button
-    severity="success"
+    severity="warning"
     size="large"
     [rounded]="true"
     pButton

@@ -12,6 +12,9 @@ export class Turma extends GenericEntity {
     @Column({default: '', nullable: true})
     codigo: string;
 
+    @Column({nullable: true})
+    dataGeracaoCodigo: Date;
+
     @Column({ type: 'simple-array', nullable: true })
     palavras: number[];
 

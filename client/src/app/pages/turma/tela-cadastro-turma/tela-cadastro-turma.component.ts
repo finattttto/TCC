@@ -89,4 +89,27 @@ export class TelaCadastroTurmaComponent implements OnInit {
       item.descricao.toLowerCase().includes(query.toLowerCase())
     );
   }
+
+  gerarCodigo() {
+    if(!this.turma?.id) {
+      return this.message.add({
+        severity: 'info',
+        summary: 'Aviso',
+        detail: 'Salve a sala antes de gerar o código!'
+      })
+    }
+
+    this.service.geraNovoCodigo(this.turma.id).subscribe({
+      next: (value) => {
+        if(value?.code) this.turma.codigo = value.code;
+      },
+      error: (err) => {
+        this.message.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: err?.data
+        })
+      },
+    })
+  }
 }

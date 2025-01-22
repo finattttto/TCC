@@ -1,22 +1,39 @@
 .app-header {
-    background-image: linear-gradient(to right, var(--bluegray-300), var(--bluegray-800));
-    color: white;
-    max-height: 70px;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  background-image: linear-gradient(
+    to right,
+    var(--bluegray-300),
+    var(--bluegray-800)
+  );
+  color: white;
+  max-height: 70px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header-content {
-    display: flex;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
 .menu-container {
-    margin-left: auto; /* Alinha a div com o p-menu e p-button à direita */
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Ajuste o valor do gap conforme necessário */
+  margin-left: auto; 
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+}
+
+input#codigo {
+  background-color: #4755697c; /* Fundo levemente cinza */
+  color: #ffffff; /* Texto branco */
+  border: 1px solid #ffffff41; /* Borda opcional */
+  border-radius: 4px; /* Bordas arredondadas */
+  font-size: 16px; /* Tamanho do texto */
+  font-weight: bold;
+}
+
+input#codigo::placeholder {
+  color: #ffffff; /* Cor do texto do placeholder (leve contraste) */
 }

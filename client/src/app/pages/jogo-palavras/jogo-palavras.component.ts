@@ -3,7 +3,8 @@ import { MessageService } from 'primeng/api';
 import { ETipoFeedback } from 'src/app/model/enum/EFeedback';
 import { Palavra } from 'src/app/model/Palavra';
 import familiaData from '../../data/familia-padrao.json';
-import { UtilService } from 'src/app/service/util.service';
+import { ELocalStorageKeys, UtilService } from 'src/app/service/util.service';
+import { TurmaService } from 'src/app/service/turma.service';
 
 class PalavraJogo {
   palavra: string;
@@ -24,7 +25,7 @@ export class JogoPalavrasComponent implements OnInit {
   acerto: boolean = false;
   animacao: boolean = false;
 
-  constructor(public msg: MessageService, private cdr: ChangeDetectorRef) {}
+  constructor(public msg: MessageService, public turmaService: TurmaService) {}
 
   get isFacil() {
     return UtilService.getPersonagem().dificuldade == 'FACIL';
@@ -35,8 +36,23 @@ export class JogoPalavrasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.palavras = familiaData as Palavra[];
-    this.novoJogo();
+    if (localStorage.getItem(ELocalStorageKeys.CODIGO_TURMA)) {
+      this.turmaService.buscaPeloCodigo(localStorage.getItem(ELocalStorageKeys.CODIGO_TURMA)).subscribe({
+        next: (value) => {
+          if(value.palavras) {
+            this.palavras = value.palavras;
+            this.novoJogo();
+          }
+        },
+        error: (err) => {
+          this.palavras = familiaData as Palavra[];
+          this.novoJogo();
+        },
+      })
+    } else {
+      this.palavras = familiaData as Palavra[];
+      this.novoJogo();
+    }
   }
 
   novoJogo(): void {
@@ -45,30 +61,35 @@ export class JogoPalavrasComponent implements OnInit {
   }
 
   sortearPalavra() {
-    this.selectedPalavra = this.palavras[Math.floor(Math.random() * this.palavras.length)];
-  
+    this.selectedPalavra =
+      this.palavras[Math.floor(Math.random() * this.palavras.length)];
+
     this.palavrasJogo = this.selectedPalavra.opcoes.map((o) => ({
       palavra: o,
       pendente: true,
     }));
-  
+
     const palavraCorreta = {
       palavra: this.selectedPalavra.descricao,
       pendente: true,
     };
-  
+
     if (!this.palavrasJogo.some((p) => p.palavra === palavraCorreta.palavra)) {
       this.palavrasJogo.push(palavraCorreta);
     }
-  
+
     this.palavrasJogo = this.palavrasJogo.sort(() => Math.random() - 0.5);
-  
-    const limite = this.isFacil ? 3 : this.isMedio ? 4 : this.palavrasJogo.length;
+
+    const limite = this.isFacil
+      ? 3
+      : this.isMedio
+      ? 4
+      : this.palavrasJogo.length;
     this.palavrasJogo = this.palavrasJogo.slice(0, limite);
-  
+
     if (!this.palavrasJogo.some((p) => p.palavra === palavraCorreta.palavra)) {
-      this.palavrasJogo.pop(); 
-      this.palavrasJogo.push(palavraCorreta); 
+      this.palavrasJogo.pop();
+      this.palavrasJogo.push(palavraCorreta);
     }
   }
 

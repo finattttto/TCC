@@ -8,7 +8,7 @@
 
 <app-tutorial [atividade]="'JOGO_MEMORIA'"></app-tutorial>
 
-<div class="grid p-fluid align-content-center" style="height: calc(100vh - 200px);">
+<div class="grid p-fluid align-content-center" style="height: calc(calc(100svh / var(--zoom)) - 200px)">
   <div class="feedback"> 
     <app-feedback [tipo]="feedback" (clearFeedback)="clearFeedback()"></app-feedback>
   </div>
@@ -38,7 +38,7 @@
 </div>
 <div class="botao-jogo-memoria" *ngIf="endGame">
   <button
-    severity="success"
+    severity="warning"
     size="large"
     [rounded]="true"
     pButton

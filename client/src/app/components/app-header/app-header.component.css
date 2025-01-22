@@ -1,4 +1,3 @@
-@charset "UTF-8";
 .app-header {
   background-image: linear-gradient(to right, var(--bluegray-300), var(--bluegray-800));
   color: white;
@@ -16,8 +15,25 @@
 }
 
 .menu-container {
-  margin-left: auto; /* Alinha a div com o p-menu e p-button à direita */
+  margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 8px; /* Ajuste o valor do gap conforme necessário */
+  gap: 8px;
+}
+
+input#codigo {
+  background-color: rgba(71, 85, 105, 0.4862745098); /* Fundo levemente cinza */
+  color: #ffffff; /* Texto branco */
+  border: 1px solid rgba(255, 255, 255, 0.2549019608); /* Borda opcional */
+  border-radius: 4px; /* Bordas arredondadas */
+  font-size: 16px; /* Tamanho do texto */
+  font-weight: bold;
+}
+
+input#codigo::-moz-placeholder {
+  color: #ffffff; /* Cor do texto do placeholder (leve contraste) */
+}
+
+input#codigo::placeholder {
+  color: #ffffff; /* Cor do texto do placeholder (leve contraste) */
 }/*# sourceMappingURL=app-header.component.css.map */

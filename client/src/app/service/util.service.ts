@@ -5,7 +5,8 @@ import { Usuario } from '../model/Usuario';
 export enum ELocalStorageKeys {
   AUTH_LIBRAS = 'AUTH_LIBRAS',
   USUARIO_LOGADO = 'USUARIO_LOGADO',
-  PERSONAGEM = 'PERSONAGEM'
+  PERSONAGEM = 'PERSONAGEM',
+  CODIGO_TURMA = 'CODIGO_TURMA'
 }
 
 @Injectable({

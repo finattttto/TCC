@@ -12,6 +12,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class AppComponent implements OnInit {
   private routeSubscription: Subscription;
+  public static codigoTurma: string;
 
   title = 'Jogo Libras';
 
@@ -59,7 +60,32 @@ export class AppComponent implements OnInit {
     public router: Router,
     private primengConfig: PrimeNGConfig,
     private renderer: Renderer2
-  ) {}
+  ) {
+    var r: any = document.getElementById('app-jogo-libras');
+    r.style.setProperty('zoom', 'var(--zoom)');
+    this.onResize();
+    window.onresize = (evt) => {
+      this.onResize();
+    }
+  }
+
+  onResize() {
+    var r: any = document.querySelector(':root');
+    if (window.innerWidth > window.innerHeight && window.innerWidth < 730) {
+      r.style.setProperty('--zoom', '0.45');
+    } else if (window.innerWidth > window.innerHeight && window.innerWidth < 900) {
+      r.style.setProperty('--zoom', '0.63');
+    } else if (window.innerWidth > window.innerHeight && window.innerWidth < 1024) {
+      r.style.setProperty('--zoom', '0.65');
+    } else if (window.innerWidth > window.innerHeight && window.innerWidth < 1290) {
+      r.style.setProperty('--zoom', '0.75');
+    } else if (window.innerWidth > window.innerHeight && window.innerWidth < 1368) {
+      r.style.setProperty('--zoom', '0.8');
+    } else {
+      r.style.setProperty('--zoom', '1');
+    }
+
+  }
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;

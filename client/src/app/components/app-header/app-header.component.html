@@ -7,19 +7,32 @@
         width="80px"
       />
     </a>
-    <a href="" style="text-decoration: none; color: inherit;">
+    <a href="" style="text-decoration: none; color: inherit">
       <h1 class="site-name">Jogo Libras</h1>
     </a>
-    <div class="menu-container flex align-items-center gap-2">
-      <p-menu #menu [model]="items" appendTo="body" [popup]="true"></p-menu>
-      <p-button
-        pRipple
-        label="Área do Professor"
-        severity="secondary"
-        (onClick)="montaMenu(); menu.toggle($event)"
-        icon="pi pi-graduation-cap"
-        iconPos="right"
-      ></p-button>
+    <div class="menu-container grid align-items-center pt-1">
+      <div class="col-fixed">
+        <input
+          id="codigo"
+          type="text"
+          pInputText
+          [(ngModel)]="codigo"
+          placeholder="Código da turma"
+          pTooltip="Digite e preciso Enter"
+          tooltipPosition="bottom"
+        />
+      </div>
+      <div class="col-fixed">
+        <p-menu #menu [model]="items" [popup]="true"></p-menu>
+        <p-button
+          pRipple
+          label="Área do Professor"
+          severity="secondary"
+          (onClick)="montaMenu(); menu.toggle($event)"
+          icon="pi pi-graduation-cap"
+          iconPos="right"
+        ></p-button>
+      </div>
     </div>
   </div>
 </header>

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { UtilService } from 'src/app/service/util.service';
+import { AppComponent } from 'src/app/app.component';
+import { ELocalStorageKeys, UtilService } from 'src/app/service/util.service';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,8 @@ import { UtilService } from 'src/app/service/util.service';
   styleUrl: './app-header.component.scss',
 })
 export class AppHeaderComponent {
+  private debounceTimer: any;
+
   items: MenuItem = [];
 
   get logged() {
@@ -18,6 +21,19 @@ export class AppHeaderComponent {
   constructor(public router: Router) {
     this.montaMenu();
   }
+
+  set codigo(value) {
+    clearTimeout(this.debounceTimer);
+    this.debounceTimer = setTimeout(() => {
+      localStorage.setItem(ELocalStorageKeys.CODIGO_TURMA, value);
+    }, 300); 
+  }
+
+  get codigo() {
+    return localStorage.getItem(ELocalStorageKeys.CODIGO_TURMA);
+  }
+
+  _codigo: string;
 
   montaMenu() {
     this.items = [

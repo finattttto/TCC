@@ -13,7 +13,7 @@
         [(ngModel)]="turma.nome"
       />
     </div>
-    <div class="col-6">
+    <div class="col-2">
       <label for="codigo">Código</label>
       <input
         class="mt-2"
@@ -21,7 +21,16 @@
         type="text"
         pInputText
         [(ngModel)]="turma.codigo"
+        [readOnly]="true"
       />
+    </div>
+    <div class="col-fixed pt-3">
+      <br/>
+      <p-button
+        label="Gerar código"
+        severity="secondary"
+        (onClick)="gerarCodigo()"
+      ></p-button>
     </div>
     <div class="grid col-12">
       <div class="col-12 pb-0">
@@ -52,7 +61,6 @@
     <div class="col-12">
       <p-table
         [value]="palavrasTurma"
-        [tableStyle]="{ 'min-width': '60rem' }"
         [scrollable]="true"
         [scrollHeight]="'400px'"
       >
