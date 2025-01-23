@@ -53,6 +53,7 @@ import { JogoPalavrasComponent } from './pages/jogo-palavras/jogo-palavras.compo
 import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -114,7 +115,7 @@ import { TutorialComponent } from './components/tutorial/tutorial.component';
         AppPersonagemComponent,
         TutorialComponent
     ],
-    providers: [provideHttpClient(withInterceptorsFromDi())],
+    providers: [provideHttpClient(withInterceptorsFromDi()), MessageService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

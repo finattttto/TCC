@@ -4,6 +4,8 @@ import { ConfirmationService, MenuItem, MessageService, PrimeNGConfig } from 'pr
 import { Subscription } from 'rxjs';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
+export const main: { msg: MessageService } = { msg: null };
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,7 +14,6 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class AppComponent implements OnInit {
   private routeSubscription: Subscription;
-  public static codigoTurma: string;
 
   title = 'Jogo Libras';
 
@@ -59,7 +60,8 @@ export class AppComponent implements OnInit {
   constructor(
     public router: Router,
     private primengConfig: PrimeNGConfig,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    public msg: MessageService
   ) {
     var r: any = document.getElementById('app-jogo-libras');
     r.style.setProperty('zoom', 'var(--zoom)');
@@ -67,6 +69,7 @@ export class AppComponent implements OnInit {
     window.onresize = (evt) => {
       this.onResize();
     }
+    main.msg = this.msg;
   }
 
   onResize() {

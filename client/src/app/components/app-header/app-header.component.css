@@ -1,5 +1,5 @@
 .app-header {
-  background-image: linear-gradient(to right, var(--bluegray-300), var(--bluegray-800));
+  background: linear-gradient(90deg, #87ceeb, #4682b4);
   color: white;
   max-height: 70px;
   padding: 10px 20px;
@@ -21,19 +21,19 @@
   gap: 8px;
 }
 
-input#codigo {
-  background-color: rgba(71, 85, 105, 0.4862745098); /* Fundo levemente cinza */
-  color: #ffffff; /* Texto branco */
-  border: 1px solid rgba(255, 255, 255, 0.2549019608); /* Borda opcional */
-  border-radius: 4px; /* Bordas arredondadas */
-  font-size: 16px; /* Tamanho do texto */
+input#codigo_sala_header {
+  background-color: rgba(71, 85, 105, 0.4862745098);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2549019608);
+  border-radius: 4px;
+  font-size: 16px;
   font-weight: bold;
 }
 
-input#codigo::-moz-placeholder {
-  color: #ffffff; /* Cor do texto do placeholder (leve contraste) */
+input#codigo_sala_header::-moz-placeholder {
+  color: #ffffff;
 }
 
-input#codigo::placeholder {
-  color: #ffffff; /* Cor do texto do placeholder (leve contraste) */
+input#codigo_sala_header::placeholder {
+  color: #ffffff;
 }/*# sourceMappingURL=app-header.component.css.map */

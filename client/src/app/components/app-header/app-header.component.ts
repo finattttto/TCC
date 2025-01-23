@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { AppComponent } from 'src/app/app.component';
 import { ELocalStorageKeys, UtilService } from 'src/app/service/util.service';
+import { IndexDbService } from 'src/app/util/indexdb.service';
 
 @Component({
   selector: 'app-header',
@@ -18,22 +19,31 @@ export class AppHeaderComponent {
     return UtilService.isLoggedIn();
   }
 
-  constructor(public router: Router) {
+  constructor(
+    public router: Router,
+    public indexDb: IndexDbService,
+    public message: MessageService
+  ) {
     this.montaMenu();
+    this.codigo = localStorage.getItem(ELocalStorageKeys.CODIGO_TURMA) || "";
   }
 
-  set codigo(value) {
-    clearTimeout(this.debounceTimer);
-    this.debounceTimer = setTimeout(() => {
-      localStorage.setItem(ELocalStorageKeys.CODIGO_TURMA, value);
-    }, 300); 
-  }
+  codigo: string;
 
-  get codigo() {
-    return localStorage.getItem(ELocalStorageKeys.CODIGO_TURMA);
+  onEnter() {
+    setTimeout(() => {
+      if (this.codigo.length == 6) {
+        localStorage.setItem(ELocalStorageKeys.CODIGO_TURMA, this.codigo);
+        this.indexDb.sincronizaSala();
+      }else {
+        this.message.add({
+          severity: 'info',
+          summary: "Aviso",
+          detail: 'O código precisa ter 6 digitos!'
+        })
+      }
+    }, 100);
   }
-
-  _codigo: string;
 
   montaMenu() {
     this.items = [
@@ -45,12 +55,16 @@ export class AppHeaderComponent {
         },
       },
       {
-        separator: true
+        separator: true,
       },
-      { 
+      // {
+      //   visible: this.logged,
+      //   label: `Bem vindo, ${UtilService.getUsuario().nome}`,
+      // },
+      {
         visible: this.logged,
-        label: 'Admin page',
-        icon: 'pi pi-user-plus',
+        label: 'Gerencial',
+        icon: 'pi pi-graduation-cap',
         command: () => {
           this.router.navigateByUrl('/inicio-admin');
         },
@@ -58,7 +72,7 @@ export class AppHeaderComponent {
       {
         visible: this.logged,
         label: 'Sair',
-        icon: 'pi pi-user-plus',
+        icon: 'pi pi-sign-out',
         command: () => {
           UtilService.loggout();
           this.router.navigateByUrl('/login');
@@ -79,7 +93,25 @@ export class AppHeaderComponent {
         command: () => {
           this.router.navigateByUrl('/cadastro-user');
         },
-      }
+      },
+      {
+        label: 'Limpar sala',
+        icon: 'pi pi-trash',
+        visible: !!localStorage.getItem(ELocalStorageKeys.CODIGO_TURMA),
+        command: async () => {
+          localStorage.removeItem(ELocalStorageKeys.CODIGO_TURMA);
+          const db = IndexDbService.getDb();
+          await db.open();
+          await db.table('PALAVRA').clear();
+          await db.table('TURMA').clear();
+          db.close();
+          this.message.add({
+            severity: 'success',
+            summary: "Sucesso",
+            detail: 'Sala limpa com sucesso!'
+          })
+        },
+      },
     ];
   }
 }

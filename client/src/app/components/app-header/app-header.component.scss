@@ -1,9 +1,6 @@
 .app-header {
-  background-image: linear-gradient(
-    to right,
-    var(--bluegray-300),
-    var(--bluegray-800)
-  );
+  background: linear-gradient(90deg, #87ceeb, #4682b4); 
+
   color: white;
   max-height: 70px;
   padding: 10px 20px;
@@ -25,15 +22,15 @@
   gap: 8px; 
 }
 
-input#codigo {
-  background-color: #4755697c; /* Fundo levemente cinza */
-  color: #ffffff; /* Texto branco */
-  border: 1px solid #ffffff41; /* Borda opcional */
-  border-radius: 4px; /* Bordas arredondadas */
-  font-size: 16px; /* Tamanho do texto */
+input#codigo_sala_header {
+  background-color: #4755697c; 
+  color: #ffffff;
+  border: 1px solid #ffffff41; 
+  border-radius: 4px;
+  font-size: 16px; 
   font-weight: bold;
 }
 
-input#codigo::placeholder {
-  color: #ffffff; /* Cor do texto do placeholder (leve contraste) */
+input#codigo_sala_header::placeholder {
+  color: #ffffff; 
 }

@@ -10,8 +10,14 @@ import { UtilService } from 'src/app/service/util.service';
 export class TelaPerfilUsuarioComponent implements OnInit {
 
   usuario: Usuario;
+
+  constructor() {}
   
   ngOnInit(): void {
     this.usuario = UtilService.getUsuario() || new Usuario();
+  }
+
+  save() {
+
   }
 }

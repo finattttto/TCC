@@ -17,7 +17,6 @@
         class="button-game pulse-button"
         pButton
         pRipple
-        severity="warning"
         (click)="play()"
       >
         <div class="col-fixed">
@@ -39,7 +38,6 @@
       <button
         (click)="editarPersonagem()"
         class="button-game"
-        severity="info"
         pButton
         pRipple
       >
@@ -57,7 +55,6 @@
     </div>
     <div>
       <button
-        severity="info"
         pButton
         pRipple
         class="button-game"
@@ -77,7 +74,6 @@
     </div>
     <div>
       <button
-        severity="info"
         pButton
         pRipple
         class="button-game"
@@ -111,6 +107,7 @@
         class="mt-2"
         id="nome"
         type="text"
+        placeholder="Escolha um nome..."
         pInputText
         [(ngModel)]="personagem.nome"
       />
@@ -166,16 +163,26 @@
       </div>
     </div>
   </div>
-  <div
-    *ngIf="etapa == 'SELECAO_PERSONAGEM'"
-    class="grid p-fluid container-selecao"
-  >
-    <div *ngFor="let p of personagens" class="div-selecao">
+  <div *ngIf="etapa == 'SELECAO_PERSONAGEM'">
+    <div class="grid p-fluid container-selecao">
+      <div *ngFor="let p of personagens" class="div-selecao">
+        <button
+          class="button-selecao p-button-secondary"
+          pButton
+          (click)="selectPersonagem(p)"
+        >
+          <img [src]="p.avatar" alt="Avatar" class="avatar" />
+          <span>{{ p.nome }}</span>
+        </button>
+      </div>
+      <div *ngIf="!personagens.length"></div>
+    </div>
+    <div class="pt-3">
       <button
-        class="button-selecao p-button-secondary"
         pButton
-        [label]="p.nome"
-        (click)="selectPersonagem(p)"
+        class="p-button-info"
+        label="Voltar"
+        (click)="etapa = 'PADRAO'"
       ></button>
     </div>
   </div>

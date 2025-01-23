@@ -15,6 +15,9 @@ routes.route('/login')
 routes.route('/cadastro')
   .post(AuthController.cadastro);
 
+routes.route('/turma-busca/:codigo')
+	.get(TurmaController.buscaTurmaPeloCodigo)
+
 routes.use(checkJwt);
 
 routes.route('/palavra')
@@ -44,8 +47,7 @@ routes.route('/pontuacao/:id')
 	.put(PontuacaoController.update)
 	.delete(PontuacaoController.remove);
 
-routes.route('/turma-busca/:codigo')
-	.get(TurmaController.buscaTurmaPeloCodigo)
+
 
 routes.route('/turma-codigo/:id')
 	.get(TurmaController.geraNovoCodigo)

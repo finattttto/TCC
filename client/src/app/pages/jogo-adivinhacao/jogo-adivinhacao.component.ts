@@ -7,6 +7,8 @@ import { PalavraService } from 'src/app/service/palavra.service';
 import { Palavra } from 'src/app/model/Palavra';
 import { ETipoFeedback } from 'src/app/model/enum/EFeedback';
 import { UtilService } from 'src/app/service/util.service';
+import { EEntidades, IndexDbService } from 'src/app/util/indexdb.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-jogo-adivinhacao',
@@ -15,6 +17,8 @@ import { UtilService } from 'src/app/service/util.service';
   providers: [MessageService],
 })
 export class JogoAdivinhacaoComponent implements OnInit {
+  private subscription!: Subscription;
+
   letras: Letra[] = [];
   draggedLetra: Letra;
   selectedLetras: (Letra | null)[] = [];
@@ -32,7 +36,9 @@ export class JogoAdivinhacaoComponent implements OnInit {
     public palavraService: PalavraService
   ) {
     this.letras = letrasData;
-    this.palavras = palavraPadraoData as Palavra[];
+    this.subscription = IndexDbService.onCarregouSala.subscribe(() => {
+      this.ngOnInit();
+    });
   }
 
   get dicaLetra() {
@@ -43,16 +49,14 @@ export class JogoAdivinhacaoComponent implements OnInit {
     return ['FACIL', 'MEDIO'].includes(UtilService.getPersonagem().dificuldade);
   }
 
-
-  ngOnInit() {
-    this.carregaObjetos();
-  }
-
-  async carregaObjetos() {
-    // this.palavras = await firstValueFrom(
-    //   this.palavraService.getAllRequest(undefined, 0, 100)
-    // );
-    await this.geraNovaPalavra();
+  async ngOnInit() {
+    const db = IndexDbService.getDb();
+    await db.open();
+    const list: Palavra[] = await db.table(EEntidades.PALAVRA).toArray();
+    this.palavras = list.filter((p) => p.tipo == 'JOGO_ADIVINHACAO');
+    if (!this.palavras.length) this.palavras = palavraPadraoData as Palavra[];
+    db.close();
+    this.geraNovaPalavra();
   }
 
   async geraNovaPalavra() {
@@ -70,15 +74,7 @@ export class JogoAdivinhacaoComponent implements OnInit {
   }
 
   async palavraCompleta() {
-    // this.msg.add({
-    //   severity: 'success',
-    //   summary: 'Aviso',
-    //   detail: 'Parabéns!',
-    // });
     this.endGame = true;
-    // setTimeout(async () => {
-    //   await this.geraNovaPalavra();
-    // }, 1000);
   }
 
   getImage() {
@@ -99,7 +95,9 @@ export class JogoAdivinhacaoComponent implements OnInit {
       this.obj.acertos[index] = this.draggedLetra.letra;
       if (
         this.obj.letras.length === this.obj.acertos.length &&
-        this.obj.letras.every((letra, index) => letra === this.obj.acertos[index])
+        this.obj.letras.every(
+          (letra, index) => letra === this.obj.acertos[index]
+        )
       ) {
         this.palavraCompleta();
       }

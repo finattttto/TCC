@@ -5,6 +5,8 @@ import { Palavra } from 'src/app/model/Palavra';
 import familiaData from '../../data/familia-padrao.json';
 import { ELocalStorageKeys, UtilService } from 'src/app/service/util.service';
 import { TurmaService } from 'src/app/service/turma.service';
+import { Subscription } from 'rxjs';
+import { EEntidades, IndexDbService } from 'src/app/util/indexdb.service';
 
 class PalavraJogo {
   palavra: string;
@@ -17,6 +19,8 @@ class PalavraJogo {
   styleUrl: './jogo-palavras.component.scss',
 })
 export class JogoPalavrasComponent implements OnInit {
+  private subscription!: Subscription;
+
   palavras: Palavra[] = [];
   palavrasJogo: PalavraJogo[] = [];
   selectedPalavra: Palavra;
@@ -25,7 +29,11 @@ export class JogoPalavrasComponent implements OnInit {
   acerto: boolean = false;
   animacao: boolean = false;
 
-  constructor(public msg: MessageService, public turmaService: TurmaService) {}
+  constructor(public turmaService: TurmaService) {
+    this.subscription = IndexDbService.onCarregouSala.subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 
   get isFacil() {
     return UtilService.getPersonagem().dificuldade == 'FACIL';
@@ -35,24 +43,14 @@ export class JogoPalavrasComponent implements OnInit {
     return UtilService.getPersonagem().dificuldade == 'MEDIO';
   }
 
-  ngOnInit(): void {
-    if (localStorage.getItem(ELocalStorageKeys.CODIGO_TURMA)) {
-      this.turmaService.buscaPeloCodigo(localStorage.getItem(ELocalStorageKeys.CODIGO_TURMA)).subscribe({
-        next: (value) => {
-          if(value.palavras) {
-            this.palavras = value.palavras;
-            this.novoJogo();
-          }
-        },
-        error: (err) => {
-          this.palavras = familiaData as Palavra[];
-          this.novoJogo();
-        },
-      })
-    } else {
-      this.palavras = familiaData as Palavra[];
-      this.novoJogo();
-    }
+  async ngOnInit() {
+    const db = IndexDbService.getDb();
+    await db.open();
+    const list: Palavra[] = await db.table(EEntidades.PALAVRA).toArray();
+    this.palavras = list.filter((p) => p.tipo == 'JOGO_PALAVRAS');
+    if(!this.palavras.length) this.palavras = familiaData as Palavra[];
+    db.close();
+    this.novoJogo();
   }
 
   novoJogo(): void {

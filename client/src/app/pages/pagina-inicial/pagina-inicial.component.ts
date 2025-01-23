@@ -7,6 +7,7 @@ import { MenuAvatarComponent } from 'src/app/components/menu-avatar/menu-avatar.
 import { Personagem } from 'src/app/model/Personagem';
 import { PersonagemService } from 'src/app/service/personagem.service';
 import { UtilService } from 'src/app/service/util.service';
+import { EEntidades, IndexDbService } from 'src/app/util/indexdb.service';
 
 export enum ETelaInicial {
   PADRAO = 'PADRAO',
@@ -77,7 +78,7 @@ export class PaginaInicialComponent implements OnInit {
 
   async savePersonagem(){
     if(this.personagem?.nome) {
-      this.personagem = await this.personagemService.savePromise(this.personagem);
+      this.personagem = await IndexDbService.salvaPersonagem(this.personagem) //await this.personagemService.savePromise(this.personagem);
       UtilService.setPersonagem(this.personagem);
       this.personagem = new Personagem();
       this.etapa = ETelaInicial.PADRAO;
@@ -85,7 +86,10 @@ export class PaginaInicialComponent implements OnInit {
   }
 
   async selecionarPersonagem() {
-    this.personagens = await firstValueFrom(this.personagemService.getAllRequest());
+    const db = IndexDbService.getDb();
+    await db.open();
+    this.personagens = await db.table(EEntidades.PERSONAGEM).toArray();
+    db.close();
     this.etapa = ETelaInicial.SELECAO_PERSONAGEM;
   }
 

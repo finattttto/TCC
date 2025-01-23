@@ -57,7 +57,7 @@ class TurmaController extends GenericController<Turma> implements IController {
         },
       });
 
-      if(!turma?.id) return response.status(404).json({ message: 'Código inválido!' });
+      if(!turma?.id) return response.status(200).json({ message: 'Código inválido!' });
 
       const palavras: Palavra[] = await AppDataSource.getRepository(Palavra).findBy({
         id: In(turma.palavras)

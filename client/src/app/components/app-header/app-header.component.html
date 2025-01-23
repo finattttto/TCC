@@ -13,14 +13,15 @@
     <div class="menu-container grid align-items-center pt-1">
       <div class="col-fixed">
         <input
-          id="codigo"
-          type="text"
-          pInputText
-          [(ngModel)]="codigo"
-          placeholder="Código da turma"
-          pTooltip="Digite e preciso Enter"
-          tooltipPosition="bottom"
-        />
+        id="codigo_sala_header"
+        type="text"
+        pInputText
+        [(ngModel)]="codigo"
+        placeholder="Código da turma"
+        pTooltip="Digite e pressione Enter"
+        tooltipPosition="bottom"
+        (keydown.enter)="onEnter()"
+      />
       </div>
       <div class="col-fixed">
         <p-menu #menu [model]="items" [popup]="true"></p-menu>

@@ -18,7 +18,7 @@
   ></app-feedback>
 </div>
 
-<div class="grid p-fluid pt-5">
+<div class="grid p-fluid pt-5" *ngIf="selectedPalavra">
   <div *ngIf="!getImage()" class="col-12 spinner">
     <p-progressSpinner ariaLabel="loading" />
   </div>
