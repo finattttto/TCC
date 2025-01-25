@@ -104,6 +104,7 @@ export class AppHeaderComponent {
           await db.open();
           await db.table('PALAVRA').clear();
           await db.table('TURMA').clear();
+          await IndexDbService.limpaPersonagensSala();
           db.close();
           this.message.add({
             severity: 'success',

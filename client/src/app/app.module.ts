@@ -54,6 +54,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
 import { MessageService } from 'primeng/api';
+import { PainelPontuacaoComponent } from './components/painel-pontuacao/painel-pontuacao.component';
 
 
 @NgModule({
@@ -113,6 +114,7 @@ import { MessageService } from 'primeng/api';
         ConfirmDialogModule,
         ProgressSpinnerModule,
         AppPersonagemComponent,
+        PainelPontuacaoComponent,
         TutorialComponent
     ],
     providers: [provideHttpClient(withInterceptorsFromDi()), MessageService],

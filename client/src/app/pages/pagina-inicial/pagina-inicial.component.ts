@@ -4,6 +4,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { firstValueFrom } from 'rxjs';
 import { MenuAvatarComponent } from 'src/app/components/menu-avatar/menu-avatar.component';
+import { PainelPontuacaoComponent } from 'src/app/components/painel-pontuacao/painel-pontuacao.component';
 import { Personagem } from 'src/app/model/Personagem';
 import { PersonagemService } from 'src/app/service/personagem.service';
 import { UtilService } from 'src/app/service/util.service';
@@ -106,6 +107,20 @@ export class PaginaInicialComponent implements OnInit {
         if(value) {
           this.personagem.avatar = value;
         }
+      },
+    })
+  }
+
+  consultarPontuacao() {
+    this.dialog.open(PainelPontuacaoComponent, {
+      header: `Histórico de pontuação: ${this.personagem?.nome}`,
+      width: '800px',
+      data: {
+        personagem: this.personagem
+      }
+    }).onClose.subscribe({
+      next: (value) => {
+
       },
     })
   }

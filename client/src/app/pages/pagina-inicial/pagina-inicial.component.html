@@ -13,12 +13,7 @@
   />
   <div *ngIf="etapa == 'PADRAO'" class="buttons">
     <div>
-      <button
-        class="button-game pulse-button"
-        pButton
-        pRipple
-        (click)="play()"
-      >
+      <button class="button-game pulse-button" pButton pRipple (click)="play()">
         <div class="col-fixed">
           <strong>Jogar</strong>
         </div>
@@ -35,12 +30,7 @@
       <hr />
     </div>
     <div *ngIf="personagemAtivo">
-      <button
-        (click)="editarPersonagem()"
-        class="button-game"
-        pButton
-        pRipple
-      >
+      <button (click)="editarPersonagem()" class="button-game" pButton pRipple>
         <div class="col-fixed">
           <strong>Meu avatar</strong>
         </div>
@@ -54,12 +44,7 @@
       </button>
     </div>
     <div>
-      <button
-        pButton
-        pRipple
-        class="button-game"
-        (click)="novoPersonagem()"
-      >
+      <button pButton pRipple class="button-game" (click)="novoPersonagem()">
         <div class="col-fixed">
           <strong>Novo avatar</strong>
         </div>
@@ -143,7 +128,15 @@
         <label for="dificuldade3" class="ml-2"> Difícil </label>
       </div>
     </div>
-    <div class="grid p-fluid col-12">
+      <div class="col-12" *ngIf="personagem?.id">
+        <button
+          pButton
+          class="custom-transparent-button"
+          severity="secondary"
+          label="Consultar pontuação"
+          (click)="consultarPontuacao()"
+        ></button>
+      </div>
       <div class="col-fixed">
         <button
           pButton
@@ -161,7 +154,6 @@
           (click)="savePersonagem()"
         ></button>
       </div>
-    </div>
   </div>
   <div *ngIf="etapa == 'SELECAO_PERSONAGEM'">
     <div class="grid p-fluid container-selecao">

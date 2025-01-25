@@ -8,8 +8,14 @@ export class Pontuacao extends GenericEntity {
     @Column({nullable: true})
     atividade: string;
 
+    @Column({nullable: true})
+    dificuldade: string;
+
     @Column({default: 0, nullable: true})
-    total: number;
+    acertos: number;
+
+    @Column({default: 0, nullable: true})
+    erros: number;
 
     @ManyToOne(() => Personagem, { eager: false, nullable: true })
     @JoinColumn({ foreignKeyConstraintName: "FK_PontuacaoPersonagem" })

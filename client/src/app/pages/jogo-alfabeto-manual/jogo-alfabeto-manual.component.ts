@@ -28,6 +28,9 @@ export class JogoAlfabetoManualComponent implements OnInit {
   acerto: boolean = false;
   animacao: boolean = false;
 
+  acertos: number = 0;
+  erros: number = 0;
+
   constructor(public msg: MessageService, private cdr: ChangeDetectorRef) {}
 
   get isFacil() {
@@ -81,9 +84,11 @@ export class JogoAlfabetoManualComponent implements OnInit {
     if (this.acerto || !opcao.pendente) return;
     if (opcao.letra == this.letraSorteada) {
       this.acerto = true;
+      this.acertos++;
       this.feedback = ETipoFeedback.ACERTO;
     } else {
       opcao.pendente = false;
+      this.erros++;
       this.feedback = ETipoFeedback.ERRO;
     }
   }

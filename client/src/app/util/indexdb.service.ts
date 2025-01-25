@@ -8,11 +8,14 @@ import { TurmaService } from '../service/turma.service';
 import { ELocalStorageKeys } from '../service/util.service';
 import { main } from '../app.component';
 import { Personagem } from '../model/Personagem';
+import { Turma } from '../model/Turma';
+import { Pontuacao } from '../model/Pontuacao';
 
 export enum EEntidades {
   PERSONAGEM = 'PERSONAGEM',
   PALAVRA = 'PALAVRA',
   TURMA = 'TURMA',
+  PONTUACAO = 'PONTUACAO'
 }
 
 @Injectable({
@@ -34,17 +37,18 @@ export class IndexDbService {
       PERSONAGEM: '++id, nome',
       TURMA: '++id, nome',
       PALAVRA: '++id, descricao',
+      PONTUACAO: '++id, atividade',
       CONFIG: 'key',
     });
     return db;
   }
 
-  static async salvarNoIndexedDB(entidade: string, itens: any[]) {
+  static async salvarNoIndexedDB(entidade: EEntidades, itens: any[], clear: boolean = true) {
     const db = this.getDb();
     if (!itens) itens = [];
     try {
       await db.open();
-      await db.table(entidade).clear();
+      if(clear) await db.table(entidade).clear();
       await db.table(entidade).bulkPut(itens);
     } catch (error) {
       console.log(`ERRO NA ENTIDADE: ${entidade}`);
@@ -65,8 +69,9 @@ export class IndexDbService {
           detail: 'Turma já carregada!',
         });
       }
-      await db.table('PALAVRA').clear();
-      await db.table('TURMA').clear();
+      await db.table(EEntidades.PALAVRA).clear();
+      await db.table(EEntidades.TURMA).clear();
+      await IndexDbService.limpaPersonagensSala();
       const sala = await firstValueFrom(
         this.turmaService.buscaPeloCodigo(codigo)
       );
@@ -78,8 +83,10 @@ export class IndexDbService {
           detail: 'Código de sala inválido!',
         });
       }
-      await IndexDbService.salvarNoIndexedDB('TURMA', [sala.turma]);
-      await IndexDbService.salvarNoIndexedDB('PALAVRA', sala.palavras);
+      await IndexDbService.salvarNoIndexedDB(EEntidades.TURMA, [sala.turma]);
+      await IndexDbService.salvarNoIndexedDB(EEntidades.PALAVRA, sala?.palavras);
+      await IndexDbService.salvarNoIndexedDB(EEntidades.PERSONAGEM, sala?.personagens, false);
+
       main.msg.add({
         severity: 'success',
         summary: 'Sucesso',
@@ -98,6 +105,42 @@ export class IndexDbService {
     }
   }
 
+  static async buscaSalaNoIndexDB(): Promise<Turma> {
+    const codigo = localStorage.getItem(ELocalStorageKeys.CODIGO_TURMA);
+    if(!codigo) return null;
+    const db = IndexDbService.getDb();
+    await db.open();
+    const turma = await db.table(EEntidades.TURMA).toArray();
+    db.close();
+    return turma?.[0] || null
+  }
+
+  static async limpaPersonagensSala() {
+    const db = IndexDbService.getDb();
+    try {
+      await db.open();
+      const list: Personagem[] = await db
+        .table(EEntidades.PERSONAGEM)
+        .toArray();
+      for (const p of list) {
+        if (p.id > 0) {
+          await db.table(EEntidades.PERSONAGEM).delete(p.id);
+        }
+      }
+      const listPontuacao: Pontuacao[] = await db
+        .table(EEntidades.PONTUACAO)
+        .toArray();
+      for (const p of listPontuacao) {
+        if (p.id > 0) {
+          await db.table(EEntidades.PONTUACAO).delete(p.id);
+        }
+      }
+      db.close();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   static async salvaPersonagem(personagem: Personagem) {
     if (!personagem?.id) {
       personagem.id = await IndexDbService.proximoId('personagem_id');
@@ -110,13 +153,38 @@ export class IndexDbService {
     } catch (error) {
       main.msg.add({
         severity: 'error',
-        summary: "Erro",
-        detail: 'Ocorreu um erro ao salvar o personagem!'
-      })
+        summary: 'Erro',
+        detail: 'Ocorreu um erro ao salvar o personagem!',
+      });
     }
     db.close();
     return personagem;
   }
+
+  static async salvaPontuacao(pontuacao: Pontuacao) {
+    if (!pontuacao?.id) {
+      pontuacao.id = await IndexDbService.proximoId('pontuacao_id');
+    }
+
+    const db = this.getDb();
+    try {
+      await db.open();
+      await db.table(EEntidades.PONTUACAO).put(pontuacao);
+    } catch (error) {
+
+    }
+    db.close();
+    return pontuacao;
+  }
+
+  static async buscaPontuacaoPersonagem(personagem: Personagem): Promise<Pontuacao[]> {
+    const db = IndexDbService.getDb();
+    await db.open();
+    const pontuacao: Pontuacao[] = await db.table(EEntidades.PONTUACAO).toArray();
+    db.close();
+    return pontuacao.filter((p) => p.personagem?.id == personagem.id)
+  }
+
 
   static async proximoId(entidade: string) {
     const db = this.getDb();
@@ -128,6 +196,7 @@ export class IndexDbService {
       const newNegativeId = lastNegativeId - 1;
 
       await db.table('CONFIG').put({ key: entidade, value: newNegativeId });
+      db.close();
       return newNegativeId;
     } catch (error) {
       console.error('Erro ao gerar ID negativo:', error);

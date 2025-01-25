@@ -29,6 +29,9 @@ export class JogoPalavrasComponent implements OnInit {
   acerto: boolean = false;
   animacao: boolean = false;
 
+  acertos: number = 0;
+  erros: number = 0;
+
   constructor(public turmaService: TurmaService) {
     this.subscription = IndexDbService.onCarregouSala.subscribe(() => {
       this.ngOnInit();
@@ -95,9 +98,11 @@ export class JogoPalavrasComponent implements OnInit {
     if (this.acerto || !opcao.pendente) return;
     if (opcao.palavra == this.selectedPalavra.descricao) {
       this.acerto = true;
+      this.acertos++;
       this.feedback = ETipoFeedback.ACERTO;
     } else {
       opcao.pendente = false;
+      this.erros++;
       this.feedback = ETipoFeedback.ERRO;
     }
   }

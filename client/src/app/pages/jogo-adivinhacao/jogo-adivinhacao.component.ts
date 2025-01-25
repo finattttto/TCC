@@ -31,6 +31,9 @@ export class JogoAdivinhacaoComponent implements OnInit {
   endGame: boolean = true;
   feedback: ETipoFeedback = ETipoFeedback.VAZIO;
 
+  acertos: number = 0;
+  erros: number = 0;
+
   constructor(
     public msg: MessageService,
     public palavraService: PalavraService
@@ -90,6 +93,7 @@ export class JogoAdivinhacaoComponent implements OnInit {
       this.draggedLetra &&
       this.obj.letras[index] === this.draggedLetra.letra
     ) {
+      this.acertos++;
       this.feedback = ETipoFeedback.ACERTO;
       this.selectedLetras[index] = this.draggedLetra;
       this.obj.acertos[index] = this.draggedLetra.letra;
@@ -102,6 +106,7 @@ export class JogoAdivinhacaoComponent implements OnInit {
         this.palavraCompleta();
       }
     } else {
+      this.erros;
       this.feedback = ETipoFeedback.ERRO;
     }
     this.draggedLetra = null;

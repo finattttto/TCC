@@ -4,6 +4,8 @@ import { firstValueFrom } from 'rxjs';
 import { Personagem } from 'src/app/model/Personagem';
 import { PersonagemService } from 'src/app/service/personagem.service';
 import { ETelaAdminAtiva } from '../../usuario/pagina-inicial-usuario/pagina-inicial-usuario.component';
+import { DialogService } from 'primeng/dynamicdialog';
+import { PainelPontuacaoComponent } from 'src/app/components/painel-pontuacao/painel-pontuacao.component';
 
 @Component({
   selector: 'app-tela-lista-personagem',
@@ -19,7 +21,8 @@ export class TelaListaPersonagemComponent implements OnInit {
   constructor(
     public service: PersonagemService,
     public confirm: ConfirmationService,
-    public mensagem: MessageService
+    public mensagem: MessageService,
+    public dialogService: DialogService
   ) {}
 
   async ngOnInit() {
@@ -29,8 +32,8 @@ export class TelaListaPersonagemComponent implements OnInit {
   editar(personagem: Personagem) {
     this.abrirEdicao.emit({
       tipo: ETelaAdminAtiva.PERSONAGEM_CADASTRO,
-      obj: personagem
-    })
+      obj: personagem,
+    });
   }
 
   excluir(personagem: Personagem) {
@@ -63,5 +66,21 @@ export class TelaListaPersonagemComponent implements OnInit {
         });
       },
     });
+  }
+
+  consultarPontuacao(personagem: Personagem) {
+    this.dialogService
+      .open(PainelPontuacaoComponent, {
+        header: `Histórico de pontuação: ${personagem?.nome}`,
+        width: '800px',
+        data: {
+          personagem: personagem,
+        },
+      })
+      .onClose.subscribe({
+        next: (value) => {
+
+        },
+      });
   }
 }

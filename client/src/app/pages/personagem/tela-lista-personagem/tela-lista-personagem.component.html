@@ -11,6 +11,7 @@
             <th>Descrição</th>
             <th style="width: 40px"></th>
             <th style="width: 40px"></th>
+            <th style="width: 40px"></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-personagem>
@@ -19,6 +20,17 @@
               <img [src]="personagem.avatar" alt="Avatar" class="avatar-lista" />
             </td>
             <td>{{ personagem.nome }}</td>
+            <td>
+              <p-button
+                icon="pi pi-history"
+                [rounded]="true"
+                [text]="true"
+                [raised]="true"
+                severity="help"
+                pTooltip="Pontuação"
+                (onClick)="consultarPontuacao(personagem)"
+              />
+            </td>
             <td>
               <p-button
                 icon="pi pi-pencil"

@@ -22,6 +22,9 @@ export class JogoMemoriaComponent implements OnInit {
   aguardandoInicio: boolean = false;
   endGame: boolean = false;
 
+  acertos: number = 0;
+  erros: number = 0;
+
   constructor(public msg: MessageService) {}
 
   get isFacil() {
@@ -105,12 +108,14 @@ export class JogoMemoriaComponent implements OnInit {
     if (this.primeiraCarta && this.segundaCarta) {
       if (this.primeiraCarta.letra == this.segundaCarta.letra) {
         this.feedback = ETipoFeedback.ACERTO;
+        this.acertos++;
         this.resetarCartas();
         if (this.cartas.every((c) => c.revelado)) {
           this.endGame = true;
         }
       } else {
         this.feedback = ETipoFeedback.ERRO;
+        this.erros++;
         this.bloqueado = true;
         setTimeout(() => {
           if (this.primeiraCarta) this.primeiraCarta.revelado = false;

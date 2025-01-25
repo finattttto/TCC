@@ -6,6 +6,7 @@ import { AppDataSource } from "../persistence/data-source";
 import { HEADER_USER_ID } from "../jwt/check-jwt";
 import { Palavra } from "../entity/Palavra";
 import { In, MoreThan } from "typeorm";
+import { Personagem } from "../entity/Personagem";
 
 class TurmaController extends GenericController<Turma> implements IController {
   public index(request: Request, response: Response) {
@@ -63,7 +64,11 @@ class TurmaController extends GenericController<Turma> implements IController {
         id: In(turma.palavras)
       })
 
-      return response.status(200).json({ turma, palavras });
+      const personagens: Personagem[] = await AppDataSource.getRepository(Personagem).findBy({
+        usuario: {id: turma.usuario?.id}
+      })
+
+      return response.status(200).json({ turma, palavras, personagens });
     } catch (error) {
       return response.status(500).json({ error: error.message });
     }

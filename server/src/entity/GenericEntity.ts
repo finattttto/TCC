@@ -6,7 +6,7 @@ export class GenericEntity {
   id?: number;
 
   @CreateDateColumn()
-  createAt?: Date;
+  createdAt?: Date;
 
   @UpdateDateColumn()
   updatedAt?: Date;
