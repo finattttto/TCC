@@ -20,7 +20,7 @@
       "esModuleInterop": true,
       "lib": ["ES2022", "dom"],
       "paths": {
-        "primeng/*": ["node_modules/primeng/*"]
+          "primeng/*": ["node_modules/primeng/*"]
       }
   },
   "angularCompilerOptions": {
@@ -29,6 +29,8 @@
       "strictInputAccessModifiers": false,
       "strictTemplates": false,
       "allowSyntheticDefaultImports": true
-  }
+  },
+  "include": [
+      "src/**/*.ts",
+  ]
 }
-
