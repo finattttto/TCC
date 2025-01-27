@@ -90,6 +90,7 @@ export class PaginaInicialComponent implements OnInit {
     const db = IndexDbService.getDb();
     await db.open();
     this.personagens = await db.table(EEntidades.PERSONAGEM).toArray();
+    if(this.personagens.length) this.personagens = this.personagens.sort((a, b) => a.nome.localeCompare(b.nome));
     db.close();
     this.etapa = ETelaInicial.SELECAO_PERSONAGEM;
   }

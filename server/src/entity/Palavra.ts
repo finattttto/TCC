@@ -13,12 +13,6 @@ export class Palavra extends GenericEntity {
 
     @Column({default: '', nullable: true, type: 'text'})
     imagem: string;
-
-    @Column({default: false})
-    pacotePadrao: string;
-
-    @Column({nullable: true, default: 'FACIL'})
-    dificuldade: string;
     
     @ManyToOne(
         () => Usuario,

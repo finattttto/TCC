@@ -7,9 +7,7 @@ export class Usuario extends AbstractModel {
     nome: string;
     username: string;
     password: string;
-    dicaSenha: string;
     email: string;
-    avatar: string;
     personagens: Personagem[];
     palavras: Palavra[];
     turmas: Turma[];

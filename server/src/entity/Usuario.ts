@@ -17,13 +17,7 @@ export class Usuario extends GenericEntity {
     password: string;
 
     @Column({default: '', nullable: true})
-    dicaSenha: string;
-
-    @Column({default: '', nullable: true})
     email: string;
-
-    @Column({nullable: true, type: 'text'})
-    avatar: string;
 
     @OneToMany(
         () => Personagem,

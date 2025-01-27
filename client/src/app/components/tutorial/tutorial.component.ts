@@ -21,16 +21,16 @@ export class TutorialComponent implements OnInit {
   ngOnInit(): void {
     switch (this.atividade) {
       case EAtividade.JOGO_ADIVINHACAO:
-        this.tutorial = 'assets/tutorial/tutorial_teste.gif';
+        this.tutorial = 'assets/tutorial/tutorial_jogo_adivinhacao.gif';
         break;
       case EAtividade.JOGO_MEMORIA:
-        this.tutorial = 'assets/tutorial/tutorial_teste.gif';
+        this.tutorial = 'assets/tutorial/tutorial_jogo_memoria.gif';
         break;
       case EAtividade.JOGO_ALFABETO:
-        this.tutorial = 'assets/tutorial/tutorial_teste.gif';
+        this.tutorial = 'assets/tutorial/tutorial_jogo_letras.gif';
         break;
       case EAtividade.JOGO_PALAVRAS:
-        this.tutorial = 'assets/tutorial/tutorial_teste.gif';
+        this.tutorial = 'assets/tutorial/tutorial_jogo_palavras.gif';
         break;
     }
   }
