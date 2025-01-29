@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve --host=127.0.0.1 --port=4200",
     "build": "ng build --configuration=production --base-href=/libras/",
+    "build2": "ng build --configuration=production --base-href=/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

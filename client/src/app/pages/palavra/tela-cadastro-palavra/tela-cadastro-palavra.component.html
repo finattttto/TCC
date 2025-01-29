@@ -13,7 +13,7 @@
       />
     </div>
     <div class="col-12"></div>
-    <div *ngIf="palavra.tipo == 'JOGO_ADIVINHACAO'" class="p-field col-12">
+    <div *ngIf="palavra.tipo == 'JOGO_ADIVINHACAO' && existsInputOtp" class="p-field col-12">
       <label for="palavra">Palavra</label>
       <p-inputOtp #inputOtp [(ngModel)]="palavra.descricao" [length]="12">
         <ng-template pTemplate="input" let-token let-events="events">

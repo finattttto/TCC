@@ -2,22 +2,33 @@
   <p-card header="Cadastro de Usuário">
     <div class="p-fluid grid cadastro-card">
       <div class="p-field col-6">
+        <label for="nome">Nome</label>
+        <input
+          id="nome"
+          type="text"
+          pInputText
+          [(ngModel)]="user.nome"
+        />
+      </div>
+      <div class="p-field col-6">
         <label for="username">Usuário</label>
         <input
           id="username"
           type="text"
           pInputText
           [(ngModel)]="user.username"
-        />
+          pTooltip="Usuário utilizado para fazer login na aplicação."
+          tooltipPosition="bottom"
+          />
       </div>
-      <div class="p-field col-6">
-        <label for="email">Email</label>
+      <div class="p-field col-12">
+        <label for="username">E-mail</label>
         <input
           id="email"
           type="text"
           pInputText
           [(ngModel)]="user.email"
-        />
+          />
       </div>
       <div class="p-field col-6">
         <label for="password">Senha</label>

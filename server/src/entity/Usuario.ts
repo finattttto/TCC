@@ -1,10 +1,11 @@
-import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, Unique } from "typeorm";
 import { GenericEntity } from "./GenericEntity";
 import { Palavra } from "./Palavra";
 import { Personagem } from "./Personagem";
 import { Turma } from "./Turma";
 
 @Entity()
+@Unique(['username'])
 export class Usuario extends GenericEntity {
 
     @Column({default: '', nullable: true})

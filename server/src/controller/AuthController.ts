@@ -32,6 +32,11 @@ class AuthController {
     try {
       const user = request.body as Usuario;
       const usuarioRepository = AppDataSource.getRepository(Usuario);
+
+      const found = await usuarioRepository.findOneBy({username: user.username});
+      if(found) {
+        return response.status(409).send({ message: 'Usuário já cadastrado!' });
+      }
       
       user.password = encrypt(user?.password);
       const saved = await usuarioRepository.save(user);

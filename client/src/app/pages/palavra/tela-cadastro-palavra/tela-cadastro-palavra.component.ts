@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { FileUpload, UploadEvent } from 'primeng/fileupload';
+import { InputOtp } from 'primeng/inputotp';
 import { Palavra } from 'src/app/model/Palavra';
 import { PalavraService } from 'src/app/service/palavra.service';
 
@@ -13,8 +14,10 @@ export class TelaCadastroPalavraComponent implements OnInit {
   @ViewChild('fileUpload')
   fileUpload!: FileUpload;
 
-  @ViewChild('inputOtp', { static: true, read: ElementRef })
-  inputOtp!: ElementRef;
+  @ViewChild('inputOtp') 
+  inputOtp!: InputOtp;
+
+  existsInputOtp: boolean = true;
 
   @Input()
   palavra: Palavra = new Palavra();
@@ -114,11 +117,10 @@ export class TelaCadastroPalavraComponent implements OnInit {
             this.palavra = new Palavra();
             this.fileUpload.clear();
 
-            const inputs =
-              this.inputOtp.nativeElement.querySelectorAll('input');
-            inputs.forEach((input: HTMLInputElement) => {
-              input.value = '';
-            });
+            this.existsInputOtp = false;
+            setTimeout(() => {
+              this.existsInputOtp = true;
+            }, 1)
           },
           error: (err) => {
             console.log(err);
