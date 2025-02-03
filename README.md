@@ -20,7 +20,7 @@ A aplicação foi desenvolvida utilizando as seguintes tecnologias:
 - **Backend**:
   - **Node.js**: Plataforma utilizada para o desenvolvimento do servidor.
   - **Express.js**: Framework para gerenciamento de rotas e middlewares.
-  - **TypeORM**: ORM utilizado para a integração com o banco de dados PostgreSQL.
+  - **TypeORM**: ORM utilizado para a integração com o banco de dados.
   - **PostgreSQL**: Banco de dados relacional utilizado para armazenar os dados da aplicação.
 
 ## Funcionalidades
@@ -31,7 +31,7 @@ A aplicação foi desenvolvida utilizando as seguintes tecnologias:
 - **Criação de personagens**: Permite que o usuário crie e personalize avatares que farão parte das atividades.
 - **Personalização de atividades**: Adapte os exercícios e desafios para cada criança, levando em consideração seu progresso.
 - **Acompanhamento de progresso**: Sistema que monitora o desempenho das crianças em cada atividade e oferece feedback.
-- **Histórico de pontuação**: A aplicação armazena o historico de pontuação do personagem, para monitor sua evolução.
+- **Histórico de pontuação**: A aplicação armazena o historico de pontuação do personagem, para monitorar sua evolução.
 - **Armazenamento Offline**: Utilização do **IndexedDB** para armazenar localmente o progresso das atividades e outros dados importantes no navegador, permitindo que o usuário continue seu aprendizado mesmo sem conexão com a internet.
 
 ## Recursos extras
