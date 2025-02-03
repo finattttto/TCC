@@ -42,7 +42,7 @@ Recursos extras utilizados para o desenvolvimento deste projeto:
 
 - **Imagem de background**: Imagem utilizada como plano de fundo das atividades na aplicação, adquirida no site da [FreePik](www.freepik.com), disponível em: [Aquarela de fundo do dia da floresta](https://br.freepik.com/vetores-gratis/aquarela-de-fundo-do-dia-da-floresta_138739587.htm#fromView=search&page=1&position=20&uuid=cd82c59b-3ec6-4464-90f1-c771dcbd8298&new_detail=true&query=wallpaper+infantil+4k).
 
-- **Avatares**: Pacote de avatares para personagelização das atividades, aquiridas no site da [FreePik](www.freepik.com), disponível em: [Pacote de ícones de diferentes perfis desenhados à mão](https://br.freepik.com/vetores-gratis/pacote-de-icones-de-diferentes-perfis-desenhados-a-mao_17863151.htm#fromView=search&page=1&position=2&uuid=d9c6e8e0-958e-48a0-a0f4-643e13b5d088&new_detail=true&query=avatar+infantil).
+- **Avatares**: Pacote de avatares para personalizar os personagens, aquiridas no site da [FreePik](www.freepik.com), disponível em: [Pacote de ícones de diferentes perfis desenhados à mão](https://br.freepik.com/vetores-gratis/pacote-de-icones-de-diferentes-perfis-desenhados-a-mao_17863151.htm#fromView=search&page=1&position=2&uuid=d9c6e8e0-958e-48a0-a0f4-643e13b5d088&new_detail=true&query=avatar+infantil).
 
 - **Materiais das atividades**: Os materiais padrões das atividades foram disponibilizados pelas professoras coorientadoras desse trabalho.
 
