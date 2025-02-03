@@ -75,12 +75,13 @@ export class IndexDbService {
       const sala = await firstValueFrom(
         this.turmaService.buscaPeloCodigo(codigo)
       );
+      console.log(sala);
       if (!sala?.turma) {
         localStorage.removeItem(ELocalStorageKeys.CODIGO_TURMA);
         return main.msg.add({
           severity: 'info',
           summary: 'Aviso',
-          detail: 'Código de sala inválido!',
+          detail: sala?.message,
         });
       }
       await IndexDbService.salvarNoIndexedDB(EEntidades.TURMA, [sala.turma]);

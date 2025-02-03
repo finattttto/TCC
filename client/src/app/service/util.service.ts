@@ -6,7 +6,8 @@ export enum ELocalStorageKeys {
   AUTH_LIBRAS = 'AUTH_LIBRAS',
   USUARIO_LOGADO = 'USUARIO_LOGADO',
   PERSONAGEM = 'PERSONAGEM',
-  CODIGO_TURMA = 'CODIGO_TURMA'
+  CODIGO_TURMA = 'CODIGO_TURMA',
+  LAST_LOGIN = 'LAST_LOGIN'
 }
 
 @Injectable({
@@ -30,11 +31,13 @@ export class UtilService {
     localStorage.removeItem(ELocalStorageKeys.AUTH_LIBRAS);
     localStorage.removeItem(ELocalStorageKeys.PERSONAGEM);
     localStorage.removeItem(ELocalStorageKeys.USUARIO_LOGADO);
+    localStorage.removeItem(ELocalStorageKeys.LAST_LOGIN);
   }
 
   public static setAuth(value: string) {
     this.auth = value;
     localStorage.setItem(ELocalStorageKeys.AUTH_LIBRAS, value);
+    localStorage.setItem(ELocalStorageKeys.LAST_LOGIN, new Date().toString());
   }
 
   public static getAuth() {
@@ -48,7 +51,7 @@ export class UtilService {
     localStorage.setItem(ELocalStorageKeys.USUARIO_LOGADO, JSON.stringify(value));
   }
 
-  public static getUsuario() {
+  public static getUsuario(): Usuario {
     if(this.usuario) return this.usuario;
     this.usuario = JSON.parse(localStorage.getItem(ELocalStorageKeys.USUARIO_LOGADO));
     return this.usuario;

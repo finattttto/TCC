@@ -6,6 +6,7 @@ import { Palavra } from 'src/app/model/Palavra';
 import { Turma } from 'src/app/model/Turma';
 import { PalavraService } from 'src/app/service/palavra.service';
 import { TurmaService } from 'src/app/service/turma.service';
+import { UtilService } from 'src/app/service/util.service';
 
 @Component({
   selector: 'app-tela-cadastro-turma',
@@ -30,7 +31,8 @@ export class TelaCadastroTurmaComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.palavras = await firstValueFrom(this.palavraService.getAllRequest(undefined, 0, 9999));
+    const user = UtilService.getUsuario();
+    this.palavras = await firstValueFrom(this.palavraService.getAllRequest([{usuario: {id: user.id}}], 0, 9999));
     if(!this.turma) this.turma = new Turma();
     else if(this.turma?.id) {
       this.palavrasTurma = this.palavras.filter((p) => this.turma.palavras.includes(p.id.toString() as any));

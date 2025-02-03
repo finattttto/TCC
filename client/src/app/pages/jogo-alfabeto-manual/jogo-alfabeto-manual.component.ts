@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import letrasData from '../../data/alfabeto-manual.json';
+import letrasDataProf from '../../data/alfabeto-manual-profe.json';
 import { ETipoFeedback } from 'src/app/model/enum/EFeedback';
 import { Letra } from 'src/app/model/interface/ILetra';
 import { UtilService } from 'src/app/service/util.service';
@@ -42,7 +43,10 @@ export class JogoAlfabetoManualComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.letras = letrasData;
+    // this.letras = letrasData;
+    if(localStorage.getItem("LETRAS_PROF")) {
+      this.letras = letrasDataProf;
+    } else this.letras = letrasData;
     this.novoJogo();
   }
 

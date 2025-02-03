@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import letrasData from '../../data/alfabeto-manual.json';
+import letrasDataProf from '../../data/alfabeto-manual-profe.json';
 import palavraPadraoData from '../../data/animais-padrao.json';
 import { MessageService } from 'primeng/api';
 import { Letra } from 'src/app/model/interface/ILetra';
@@ -38,7 +39,10 @@ export class JogoAdivinhacaoComponent implements OnInit {
     public msg: MessageService,
     public palavraService: PalavraService
   ) {
-    this.letras = letrasData;
+    if(localStorage.getItem("LETRAS_PROF")) {
+      this.letras = letrasDataProf;
+    } else this.letras = letrasData;
+    
     this.subscription = IndexDbService.onCarregouSala.subscribe(() => {
       this.ngOnInit();
     });

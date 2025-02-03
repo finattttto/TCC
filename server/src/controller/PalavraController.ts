@@ -39,6 +39,11 @@ class PalavraController
   }
   
   public update(request: Request, response: Response) {
+
+    if(!!request?.headers?.[HEADER_USER_ID]) {
+      request.body.usuario = {id: request.headers[HEADER_USER_ID]}
+    } else request.body.usuario = null;
+    
     return super.update(
         request,
         response,

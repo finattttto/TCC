@@ -6,6 +6,7 @@ import { PersonagemService } from 'src/app/service/personagem.service';
 import { ETelaAdminAtiva } from '../../usuario/pagina-inicial-usuario/pagina-inicial-usuario.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PainelPontuacaoComponent } from 'src/app/components/painel-pontuacao/painel-pontuacao.component';
+import { UtilService } from 'src/app/service/util.service';
 
 @Component({
   selector: 'app-tela-lista-personagem',
@@ -26,7 +27,8 @@ export class TelaListaPersonagemComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.personagens = await firstValueFrom(this.service.getAllRequest());
+    const user = UtilService.getUsuario();
+    this.personagens = await firstValueFrom(this.service.getAllRequest([{usuario: {id: user.id}}], 0, 999));
   }
 
   editar(personagem: Personagem) {

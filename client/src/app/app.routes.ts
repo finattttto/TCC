@@ -18,6 +18,6 @@ export const routes: Routes = [
     { path: 'login', component: TelaLoginUsuarioComponent },
     { path: 'cadastro-user', component: TelaCadastroUsuarioComponent },
 
-    { path: 'inicio-admin', component: PaginaInicialUsuarioComponent, /*canActivate: [authGuard] */ },
+    { path: 'inicio-admin', component: PaginaInicialUsuarioComponent, canActivate: [authGuard] },
     { path: '**', redirectTo: '' }
 ];

@@ -4,6 +4,7 @@ import { Turma } from 'src/app/model/Turma';
 import { TurmaService } from 'src/app/service/turma.service';
 import { ETelaAdminAtiva } from '../../usuario/pagina-inicial-usuario/pagina-inicial-usuario.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { UtilService } from 'src/app/service/util.service';
 
 @Component({
   selector: 'app-tela-lista-turma',
@@ -23,7 +24,8 @@ export class TelaListaTurmaComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.turmas = await firstValueFrom(this.service.getAllRequest());
+    const user = UtilService.getUsuario();
+    this.turmas = await firstValueFrom(this.service.getAllRequest([{usuario: {id: user.id}}], 0, 999));
   }
 
   editar(turma: Turma) {

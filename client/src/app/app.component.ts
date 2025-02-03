@@ -3,6 +3,7 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { ConfirmationService, MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ELocalStorageKeys, UtilService } from './service/util.service';
 
 export const main: { msg: MessageService } = { msg: null };
 
@@ -102,6 +103,16 @@ export class AppComponent implements OnInit {
         }
       }
     });
+
+    if(localStorage.getItem(ELocalStorageKeys.LAST_LOGIN)) {
+      const lastLogin = new Date(localStorage.getItem(ELocalStorageKeys.LAST_LOGIN));
+      const now = new Date();
+      const diffInMs = now.getTime() - lastLogin.getTime();
+    
+      if (diffInMs > 24 * 60 * 60 * 1000) {
+        UtilService.loggout();
+      }
+    }
   }
 
   isDockVisible(): boolean {

@@ -15,10 +15,8 @@ class TurmaController extends GenericController<Turma> implements IController {
 
   public async save(request: Request, response: Response) {
     if (!!request?.headers?.[HEADER_USER_ID]) {
-      request.body.usuario = {
-        id: request.headers[HEADER_USER_ID] as any,
-      } as any;
-    }
+      request.body.usuario = { id: request.headers[HEADER_USER_ID] };
+    } else request.body.usuario = null;
 
     // const palavras = request.body.palavras as Palavra[];
     // request.body.palavras = palavras.map((p) => p.id);
@@ -31,6 +29,9 @@ class TurmaController extends GenericController<Turma> implements IController {
   }
 
   public update(request: Request, response: Response) {
+    if (!!request?.headers?.[HEADER_USER_ID]) {
+      request.body.usuario = { id: request.headers[HEADER_USER_ID] };
+    } else request.body.usuario = null;
     return super.update(request, response, AppDataSource.getRepository(Turma));
   }
 
@@ -53,20 +54,28 @@ class TurmaController extends GenericController<Turma> implements IController {
       const codigo = request.params.codigo as string;
       const turma = await AppDataSource.getRepository(Turma).findOne({
         where: {
-          codigo: codigo,
-          dataGeracaoCodigo: MoreThan(new Date(Date.now() - 24 * 60 * 60 * 1000)),
+          codigo: codigo
         },
       });
 
-      if(!turma?.id) return response.status(200).json({ message: 'Código inválido!' });
+      if (!turma?.id)
+        return response.status(200).json({ message: "Código de sala inválido!" });
 
-      const palavras: Palavra[] = await AppDataSource.getRepository(Palavra).findBy({
-        id: In(turma.palavras)
-      })
+      if(turma.dataGeracaoCodigo < new Date(Date.now() - 24 * 60 * 60 * 1000)) {
+        return response.status(200).json({ message: "Código de sala vencido!" });
+      }
 
-      const personagens: Personagem[] = await AppDataSource.getRepository(Personagem).findBy({
-        usuario: {id: turma.usuario?.id}
-      })
+      const palavras: Palavra[] = await AppDataSource.getRepository(
+        Palavra
+      ).findBy({
+        id: In(turma.palavras),
+      });
+
+      const personagens: Personagem[] = await AppDataSource.getRepository(
+        Personagem
+      ).findBy({
+        usuario: { id: turma.usuario?.id },
+      });
 
       return response.status(200).json({ turma, palavras, personagens });
     } catch (error) {
@@ -83,7 +92,7 @@ async function geraCodigoUnicoParaTurma(turmaId: number): Promise<string> {
     uniqueCode = generateRandomCode();
   } while (!(await isCodeUnique(uniqueCode)));
 
-  const turma = await turmaRepository.findOneBy({id: turmaId});
+  const turma = await turmaRepository.findOneBy({ id: turmaId });
   if (!turma) {
     throw new Error("Turma não encontrada");
   }
@@ -94,7 +103,6 @@ async function geraCodigoUnicoParaTurma(turmaId: number): Promise<string> {
 
   return uniqueCode;
 }
-
 
 async function isCodeUnique(code: string): Promise<boolean> {
   const turmaRepository = AppDataSource.getRepository(Turma);
@@ -108,13 +116,12 @@ async function isCodeUnique(code: string): Promise<boolean> {
 }
 
 function generateRandomCode(): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let code = '';
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let code = "";
   for (let i = 0; i < 6; i++) {
     code += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return code;
 }
-
 
 export default new TurmaController();

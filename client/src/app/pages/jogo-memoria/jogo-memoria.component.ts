@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import letrasData from '../../data/alfabeto-manual.json';
+import letrasDataProf from '../../data/alfabeto-manual-profe.json';
 import { ETipoFeedback } from 'src/app/model/enum/EFeedback';
 import { Letra } from 'src/app/model/interface/ILetra';
 import { UtilService } from 'src/app/service/util.service';
@@ -54,7 +55,11 @@ export class JogoMemoriaComponent implements OnInit {
   }
 
   sorteador(): Letra[] {
-    const shuffled = [...letrasData];
+    let letrasDataAtual;
+    if(localStorage.getItem("LETRAS_PROF")) {
+      letrasDataAtual = letrasDataProf;
+    } else letrasDataAtual = letrasData;
+    const shuffled = [...letrasDataAtual];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
