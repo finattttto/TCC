@@ -4,7 +4,7 @@ Este repositório contém o código e a documentação do meu **Trabalho de Conc
 
 A aplicação permite **criar e personalizar personagens**, ajustar atividades e **acompanhar o progresso** dos alunos, proporcionando um aprendizado mais imersivo e adaptado às necessidades do público-alvo.
 
-A aplicação está hospedada e pode ser acessada em [Alfabetiza Libras](https://libras.luizsv.com.br/).
+A aplicação pode ser acessada em [Alfabetiza Libras](https://libras.luizsv.com.br/).
 
 ## Tecnologias Utilizadas
 
