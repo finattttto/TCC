@@ -63,11 +63,11 @@ export class IndexDbService {
     try {
       const turma = await db.table(EEntidades.TURMA).toArray();
       if (turma[0]?.codigo == codigo) {
-        return main.msg.add({
-          severity: 'info',
-          summary: 'Aviso',
-          detail: 'Turma já carregada!',
-        });
+        // return main.msg.add({
+        //   severity: 'info',
+        //   summary: 'Aviso',
+        //   detail: 'Turma já carregada!',
+        // });
       }
       await db.table(EEntidades.PALAVRA).clear();
       await db.table(EEntidades.TURMA).clear();

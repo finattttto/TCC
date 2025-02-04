@@ -103,7 +103,10 @@ export class TelaCadastroTurmaComponent implements OnInit {
 
     this.service.geraNovoCodigo(this.turma.id).subscribe({
       next: (value) => {
-        if(value?.code) this.turma.codigo = value.code;
+        if(value?.code) {
+          this.turma.codigo = value.code;
+          this.turma.dataGeracaoCodigo = new Date();
+        }
       },
       error: (err) => {
         this.message.add({

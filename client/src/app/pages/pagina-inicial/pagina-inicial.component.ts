@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { firstValueFrom } from 'rxjs';
@@ -19,10 +20,9 @@ export enum ETelaInicial {
 @Component({
   selector: 'app-pagina-inicial',
   templateUrl: './pagina-inicial.component.html',
-  styleUrl: './pagina-inicial.component.scss'
+  styleUrl: './pagina-inicial.component.scss',
 })
 export class PaginaInicialComponent implements OnInit {
-
   personagem: Personagem = new Personagem();
   personagens: Personagem[] = [];
   isMoving: boolean = false;
@@ -37,7 +37,7 @@ export class PaginaInicialComponent implements OnInit {
     this._etapa = value;
     this.onEtapaChange(value);
   }
-   
+
   get avatar() {
     return this.personagem?.avatar || 'assets/avatar/avatar_1.jpg';
   }
@@ -49,22 +49,22 @@ export class PaginaInicialComponent implements OnInit {
   constructor(
     public personagemService: PersonagemService,
     public router: Router,
-    public dialog: DialogService
+    public dialog: DialogService,
+    public confirm: ConfirmationService,
+    public message: MessageService
   ) {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   private onEtapaChange(etapa: ETelaInicial): void {
     this.isMoving = true;
     setTimeout(() => {
       this.isMoving = false;
-    }, 1000)
+    }, 1000);
   }
 
   play() {
-    this.router.navigateByUrl("/alfabeto-manual")
+    this.router.navigateByUrl('/alfabeto-manual');
   }
 
   novoPersonagem() {
@@ -77,9 +77,9 @@ export class PaginaInicialComponent implements OnInit {
     this.etapa = ETelaInicial.NOVO_PERSONAGEM;
   }
 
-  async savePersonagem(){
-    if(this.personagem?.nome) {
-      this.personagem = await IndexDbService.salvaPersonagem(this.personagem) //await this.personagemService.savePromise(this.personagem);
+  async savePersonagem() {
+    if (this.personagem?.nome) {
+      this.personagem = await IndexDbService.salvaPersonagem(this.personagem); //await this.personagemService.savePromise(this.personagem);
       UtilService.setPersonagem(this.personagem);
       this.personagem = new Personagem();
       this.etapa = ETelaInicial.PADRAO;
@@ -90,7 +90,10 @@ export class PaginaInicialComponent implements OnInit {
     const db = IndexDbService.getDb();
     await db.open();
     this.personagens = await db.table(EEntidades.PERSONAGEM).toArray();
-    if(this.personagens.length) this.personagens = this.personagens.sort((a, b) => a.nome.localeCompare(b.nome));
+    if (this.personagens.length)
+      this.personagens = this.personagens.sort((a, b) =>
+        a.nome.localeCompare(b.nome)
+      );
     db.close();
     this.etapa = ETelaInicial.SELECAO_PERSONAGEM;
   }
@@ -101,29 +104,63 @@ export class PaginaInicialComponent implements OnInit {
   }
 
   mudarAvatar() {
-    this.dialog.open(MenuAvatarComponent, {
-      header: 'Selecione um Avatar'
-    }).onClose.subscribe({
-      next: (value) => {
-        if(value) {
-          this.personagem.avatar = value;
-        }
-      },
-    })
+    this.dialog
+      .open(MenuAvatarComponent, {
+        header: 'Selecione um Avatar',
+      })
+      .onClose.subscribe({
+        next: (value) => {
+          if (value) {
+            this.personagem.avatar = value;
+          }
+        },
+      });
   }
 
   consultarPontuacao() {
-    this.dialog.open(PainelPontuacaoComponent, {
-      header: `Histórico de pontuação: ${this.personagem?.nome}`,
-      width: '800px',
-      data: {
-        personagem: this.personagem
-      }
-    }).onClose.subscribe({
-      next: (value) => {
+    this.dialog
+      .open(PainelPontuacaoComponent, {
+        header: `Histórico de pontuação: ${this.personagem?.nome}`,
+        width: '800px',
+        data: {
+          personagem: this.personagem,
+        },
+      })
+      .onClose.subscribe({
+        next: (value) => {},
+      });
+  }
 
+  excluir(personagem: Personagem) {
+    this.confirm.confirm({
+      message: 'Tem certeza que deseja excluir esse registro?',
+      header: 'Confirme',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Não',
+      acceptLabel: 'Sim',
+      rejectButtonStyleClass: 'confirm-button-danger',
+      accept: async () => {
+        const db = IndexDbService.getDb();
+        try {
+          await db.open();
+          await db.table(EEntidades.PERSONAGEM).delete(personagem.id);
+          this.personagens = this.personagens.filter((p) => p.id != personagem.id);
+          this.message.add({
+            severity: 'success',
+            summary: 'Sucesso!',
+            detail: 'Personagem removido com sucesso!',
+          });
+        } catch (error) {
+          console.log(error);
+          
+          this.message.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Ocorreu um erro ao remover o personagem!',
+          });
+        }
+        db.close();
       },
-    })
+    });
   }
 }
-

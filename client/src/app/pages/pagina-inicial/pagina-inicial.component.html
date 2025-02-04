@@ -128,32 +128,32 @@
         <label for="dificuldade3" class="ml-2"> Difícil </label>
       </div>
     </div>
-      <div class="col-12" *ngIf="personagem?.id">
-        <button
-          pButton
-          class="custom-transparent-button"
-          severity="secondary"
-          label="Consultar pontuação"
-          (click)="consultarPontuacao()"
-        ></button>
-      </div>
-      <div class="col-fixed">
-        <button
-          pButton
-          class="p-button-info"
-          label="Voltar"
-          (click)="etapa = 'PADRAO'"
-        ></button>
-      </div>
-      <div class="col"></div>
-      <div class="col-fixed">
-        <button
-          pButton
-          class="p-button-success"
-          label="Salvar"
-          (click)="savePersonagem()"
-        ></button>
-      </div>
+    <div class="col-12" *ngIf="personagem?.id">
+      <button
+        pButton
+        class="custom-transparent-button"
+        severity="secondary"
+        label="Consultar pontuação"
+        (click)="consultarPontuacao()"
+      ></button>
+    </div>
+    <div class="col-fixed">
+      <button
+        pButton
+        class="p-button-info"
+        label="Voltar"
+        (click)="etapa = 'PADRAO'"
+      ></button>
+    </div>
+    <div class="col"></div>
+    <div class="col-fixed">
+      <button
+        pButton
+        class="p-button-success"
+        label="Salvar"
+        (click)="savePersonagem()"
+      ></button>
+    </div>
   </div>
   <div *ngIf="etapa == 'SELECAO_PERSONAGEM'">
     <div class="grid p-fluid container-selecao">
@@ -165,6 +165,7 @@
         >
           <img [src]="p.avatar" alt="Avatar" class="avatar" />
           <span>{{ p.nome }}</span>
+          <i class="pi pi-trash" (click)="excluir(p); $event.stopPropagation()" pTooltip="Excluir"></i>
         </button>
       </div>
       <div *ngIf="!personagens.length"></div>

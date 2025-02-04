@@ -12,6 +12,7 @@
             <th>Palavras</th>
             <th style="width: 40px"></th>
             <th style="width: 40px"></th>
+            <th style="width: 40px"></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-turma>
@@ -19,6 +20,17 @@
             <td>{{ turma.nome }}</td>
             <td>{{ turma.codigo }}</td>
             <td>{{ turma.palavras?.length }}</td>
+            <td>
+              <p-button
+                icon="pi pi-undo"
+                [rounded]="true"
+                [text]="true"
+                [raised]="true"
+                severity="help"
+                pTooltip="Novo código"
+                (onClick)="gerarCodigo(turma)"
+              />
+            </td>
             <td>
               <p-button
                 icon="pi pi-pencil"

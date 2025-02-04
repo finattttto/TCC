@@ -64,4 +64,22 @@ export class TelaListaTurmaComponent implements OnInit {
       },
     });
   }
+
+  gerarCodigo(turma: Turma) {
+    this.service.geraNovoCodigo(turma.id).subscribe({
+      next: (value) => {
+        if(value?.code) {
+          turma.codigo = value.code;
+          turma.dataGeracaoCodigo = new Date();
+        }
+      },
+      error: (err) => {
+        this.mensagem.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: err?.data
+        })
+      },
+    })
+  }
 }
