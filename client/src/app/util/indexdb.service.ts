@@ -54,6 +54,7 @@ export class IndexDbService {
       console.log(`ERRO NA ENTIDADE: ${entidade}`);
       console.log(error);
     }
+    db.close();
   }
 
   public async sincronizaSala() {

@@ -7,22 +7,26 @@ import { AppDataSource } from "../persistence/data-source";
 
 class AuthController {
   public async login(request: Request, response: Response) {
-    const { username, password } = request.body;
-    const usuarioRepository = AppDataSource.getRepository(Usuario);
-    const user = await usuarioRepository.findOneBy({
-      username,
-    });
-    if (user) {
-      console.log(user);
-
-      const decrypted = decrypt(user?.password);
-      if (decrypted == password) {
-        const newToken = jwt.sign({ username, id: user.id }, configJwt.jwtSecret);
-        return response.status(200).json({
-          usuario: user,
-          token: newToken,
-        });
+    try {
+      const { username, password } = request.body;
+      const usuarioRepository = AppDataSource.getRepository(Usuario);
+      const user = await usuarioRepository.findOneBy({
+        username,
+      });
+      if (user) {
+        console.log(user);
+  
+        const decrypted = decrypt(user?.password);
+        if (decrypted == password) {
+          const newToken = jwt.sign({ username, id: user.id }, configJwt.jwtSecret);
+          return response.status(200).json({
+            usuario: user,
+            token: newToken,
+          });
+        }
       }
+    } catch (e) {
+      console.log(e);
     }
 
     return response.status(401).send("Usuário ou senha incorretos!");
@@ -33,11 +37,13 @@ class AuthController {
       const user = request.body as Usuario;
       const usuarioRepository = AppDataSource.getRepository(Usuario);
 
-      const found = await usuarioRepository.findOneBy({username: user.username});
-      if(found) {
-        return response.status(409).send({ message: 'Usuário já cadastrado!' });
+      const found = await usuarioRepository.findOneBy({
+        username: user.username,
+      });
+      if (found) {
+        return response.status(409).send({ message: "Usuário já cadastrado!" });
       }
-      
+
       user.password = encrypt(user?.password);
       const saved = await usuarioRepository.save(user);
 

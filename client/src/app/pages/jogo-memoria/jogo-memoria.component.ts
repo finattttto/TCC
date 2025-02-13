@@ -59,6 +59,7 @@ export class JogoMemoriaComponent implements OnInit {
     if(localStorage.getItem("LETRAS_PROF")) {
       letrasDataAtual = letrasDataProf;
     } else letrasDataAtual = letrasData;
+
     const shuffled = [...letrasDataAtual];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));

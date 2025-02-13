@@ -110,7 +110,7 @@ export class JogoAdivinhacaoComponent implements OnInit {
         this.palavraCompleta();
       }
     } else {
-      this.erros;
+      this.erros++;
       this.feedback = ETipoFeedback.ERRO;
     }
     this.draggedLetra = null;
