@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
     },
   ];
 
-  allowedRoutes = ['/adivinhacao', '/alfabeto-manual', '/jogo-memoria', '/jogo-palavra', '/'];
+  allowedRoutes = ['/adivinhacao', '/alfabeto-manual', '/jogo-memoria', '/jogo-palavra', '/', '/sobre'];
 
   constructor(
     public router: Router,
@@ -116,6 +116,7 @@ export class AppComponent implements OnInit {
   }
 
   isDockVisible(): boolean {
-    return this.allowedRoutes.includes(this.router.url);
+    const visible = this.allowedRoutes.filter((a) => a != '/sobre')
+    return visible.includes(this.router.url);
   }
 }

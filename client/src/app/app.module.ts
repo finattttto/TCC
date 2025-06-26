@@ -55,6 +55,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
 import { MessageService } from 'primeng/api';
 import { PainelPontuacaoComponent } from './components/painel-pontuacao/painel-pontuacao.component';
+import { SobreComponent } from './pages/sobre/sobre.component';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { PainelPontuacaoComponent } from './components/painel-pontuacao/painel-p
         TelaLoginUsuarioComponent,
         TelaPerfilUsuarioComponent,
         TelaListaPersonagemComponent,
-        TelaCadastroPersonagemComponent
+        TelaCadastroPersonagemComponent,
+        SobreComponent
     ],
     imports: [
         BrowserModule,

@@ -36,4 +36,31 @@ input#codigo_sala_header::-moz-placeholder {
 
 input#codigo_sala_header::placeholder {
   color: #ffffff;
+}
+
+.site-name-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.site-name {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2A4D69;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.site-tagline {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #4B86B4;
+  margin-top: -0.5rem;
+  letter-spacing: 0.5px;
+  text-align: center;
 }/*# sourceMappingURL=app-header.component.css.map */

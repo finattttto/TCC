@@ -128,6 +128,13 @@ export class AppHeaderComponent {
           this.router.navigateByUrl('');
         },
       },
+      {
+        label: 'Sobre',
+        icon: 'pi pi-info-circle',
+        command: () => {
+          this.router.navigateByUrl('/sobre');
+        },
+      },
     ];
   }
 }

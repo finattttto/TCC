@@ -8,6 +8,7 @@ import { TelaCadastroUsuarioComponent } from "./pages/usuario/tela-cadastro-usua
 import { PaginaInicialUsuarioComponent } from "./pages/usuario/pagina-inicial-usuario/pagina-inicial-usuario.component";
 import { JogoPalavrasComponent } from "./pages/jogo-palavras/jogo-palavras.component";
 import { authGuard } from "./auth.guard";
+import { SobreComponent } from "./pages/sobre/sobre.component";
 
 export const routes: Routes = [
     { path: '', component: PaginaInicialComponent },
@@ -17,6 +18,7 @@ export const routes: Routes = [
     { path: 'jogo-palavra', component: JogoPalavrasComponent },
     { path: 'login', component: TelaLoginUsuarioComponent },
     { path: 'cadastro-user', component: TelaCadastroUsuarioComponent },
+    { path: 'sobre', component: SobreComponent },
 
     { path: 'inicio-admin', component: PaginaInicialUsuarioComponent, canActivate: [authGuard] },
     { path: '**', redirectTo: '' }
