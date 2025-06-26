@@ -113,20 +113,21 @@ export class AppHeaderComponent {
           })
         },
       },
-      // {
-      //   separator: true
-      // },
-      // {
-      //   label: 'Mudar letras',
-      //   icon: 'pi pi-user-plus',
-      //   command: () => {
-      //     if(localStorage.getItem("LETRAS_PROF")) {
-      //       localStorage.removeItem("LETRAS_PROF");
-      //     } else {
-      //       localStorage.setItem("LETRAS_PROF", 'true')
-      //     }
-      //   },
-      // },
+      {
+        separator: true
+      },
+      {
+        label: localStorage.getItem("LETRAS_ANTIGAS") ? 'Modo colorido' : 'Modo simples',
+        icon: 'pi pi-palette',
+        command: () => {
+          if(localStorage.getItem("LETRAS_ANTIGAS")) {
+            localStorage.removeItem("LETRAS_ANTIGAS");
+          } else {
+            localStorage.setItem("LETRAS_ANTIGAS", 'true')
+          }
+          this.router.navigateByUrl('');
+        },
+      },
     ];
   }
 }

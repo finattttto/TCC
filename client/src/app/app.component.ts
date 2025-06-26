@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
     },
     {
       label: 'Jogo Adivinhação',
-      icon: 'https://cdn-icons-png.flaticon.com/512/5893/5893002.png',
+      icon: 'https://cdn-icons-png.flaticon.com/512/10199/10199730.png',
       command: () => {
         this.router.navigateByUrl('/adivinhacao');
       },

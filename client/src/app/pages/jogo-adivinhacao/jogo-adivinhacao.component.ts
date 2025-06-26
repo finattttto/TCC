@@ -39,9 +39,9 @@ export class JogoAdivinhacaoComponent implements OnInit {
     public msg: MessageService,
     public palavraService: PalavraService
   ) {
-    if(localStorage.getItem("LETRAS_PROF")) {
-      this.letras = letrasDataProf;
-    } else this.letras = letrasData;
+    if(localStorage.getItem("LETRAS_ANTIGAS")) {
+      this.letras = letrasData;
+    } else this.letras = letrasDataProf;
     
     this.subscription = IndexDbService.onCarregouSala.subscribe(() => {
       this.ngOnInit();

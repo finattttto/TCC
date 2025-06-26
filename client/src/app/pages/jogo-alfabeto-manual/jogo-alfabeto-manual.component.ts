@@ -44,9 +44,9 @@ export class JogoAlfabetoManualComponent implements OnInit {
 
   ngOnInit(): void {
     // this.letras = letrasData;
-    if(localStorage.getItem("LETRAS_PROF")) {
-      this.letras = letrasDataProf;
-    } else this.letras = letrasData;
+    if(localStorage.getItem("LETRAS_ANTIGAS")) {
+      this.letras = letrasData;
+    } else this.letras = letrasDataProf;
     this.novoJogo();
   }
 

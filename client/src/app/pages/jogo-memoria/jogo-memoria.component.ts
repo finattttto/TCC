@@ -56,9 +56,9 @@ export class JogoMemoriaComponent implements OnInit {
 
   sorteador(): Letra[] {
     let letrasDataAtual;
-    if(localStorage.getItem("LETRAS_PROF")) {
-      letrasDataAtual = letrasDataProf;
-    } else letrasDataAtual = letrasData;
+    if(localStorage.getItem("LETRAS_ANTIGAS")) {
+      letrasDataAtual = letrasData;
+    } else letrasDataAtual = letrasDataProf;
 
     const shuffled = [...letrasDataAtual];
     for (let i = shuffled.length - 1; i > 0; i--) {
